@@ -1,4 +1,4 @@
-package com.homeexpences.service;
+package com.homeexpenses.service;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

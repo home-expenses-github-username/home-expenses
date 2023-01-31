@@ -1,4 +1,4 @@
-package com.homeexpences.service;
+package com.homeexpenses.service;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
