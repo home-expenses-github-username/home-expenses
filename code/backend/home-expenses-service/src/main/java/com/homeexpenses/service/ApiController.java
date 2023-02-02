@@ -21,9 +21,9 @@ public class ApiController {
     }
 
     @GetMapping("/expense")
-    public Expence expense (){
+    public Expense expense (){
         ZonedDateTime now = ZonedDateTime.now();
-        return new Expence(now,"food", 120, "comment 1");
+        return new Expense(now,"food", 120, "comment 1");
     }
 
 }
