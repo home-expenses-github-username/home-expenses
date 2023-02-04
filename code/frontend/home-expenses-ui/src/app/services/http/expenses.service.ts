@@ -4,7 +4,7 @@ import { map, Observable } from 'rxjs';
 import { Expense } from '../../interfaces/Expense';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class ExpensesService {
   constructor(private httpClient: HttpClient) {}
