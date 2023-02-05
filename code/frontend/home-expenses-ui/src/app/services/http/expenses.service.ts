@@ -12,12 +12,13 @@ export class ExpensesService {
   constructor(private httpClient: HttpClient) {}
 
   public getExpenses(): Observable<Expense[]> {
-    // return this.httpClient
-    //   .get<{ _embedded: Expense[] }>('http://localhost:8080/api/expenses')
-    //   .pipe(map((response) => response._embedded));
+    return this.httpClient
+      // .get<{ _embedded: {expenses: Expense[]} }>('http://localhost:8080/api/expenses')
+      .get<{ _embedded: {expenses: Expense[]} }>('/api/expenses')
+      .pipe(map((response) => response._embedded.expenses));
 
     // return of(expensesMock);
-    return interval(2000).pipe(map(() => expensesMock));
+    // return interval(2000).pipe(map(() => expensesMock));
   }
 
   public createExpense(expenseBody: Expense): Observable<any> {
