@@ -1,0 +1,26 @@
+[
+  {
+    "date": null,
+    "category": "food",
+    "cost": 75,
+    "comment": ""
+  },
+  {
+    "date": null,
+    "category": "housing",
+    "cost": 2950,
+    "comment": "Not enough money"
+  },
+  {
+    "date": null,
+    "category": "food",
+    "cost": 105,
+    "comment": "Auchan"
+  },
+  {
+    "date": null,
+    "category": "transportation",
+    "cost": 70,
+    "comment": "My notes"
+  }
+]

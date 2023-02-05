@@ -10,7 +10,7 @@ import {
 import { HttpErrorResponse } from '@angular/common/http';
 import { Expense } from '../../interfaces/Expense';
 
-interface ExpensesState {
+export interface ExpensesState {
   expenses: Expense[];
   isLoading: boolean;
   error: HttpErrorResponse;
