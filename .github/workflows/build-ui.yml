@@ -9,13 +9,12 @@ on:
   pull_request:
     branches: ["main"]
 
-defaults:
-  run:
-    working-directory: code/frontend/home-expenses-ui
-
 jobs:
   build:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: code/frontend/home-expenses-ui
 
     strategy:
       matrix:
@@ -29,9 +28,9 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
-          cache: 'npm'
+          cache: "npm"
 
-      - name: 'npm CI and Build'
+      - name: "npm CI and Build"
         run: |
           ls
           npm ci
