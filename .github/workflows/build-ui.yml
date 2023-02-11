@@ -32,21 +32,22 @@ jobs:
 
       - name: Display the path 1
         run: |
-          cd code
-          ls -l
-
-      - name: Display the path 2
-        run: |
           ls -l
         shell: bash
 
-      - run: |
+      - name: Display the path 2
+        run: |
+          cd code
+          ls -l
+
+      - name: Display the path 3
+        run: |
           cd code/frontend/home-expenses-ui
           ls -l
           npm ci
-      #        working-directory: code/frontend/home-expenses-ui
 
       - run: |
           cd code/frontend/home-expenses-ui
           npm run build --if-present
+
 #        working-directory: ./code/frontend/home-expenses-ui
