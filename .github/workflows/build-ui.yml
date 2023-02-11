@@ -20,8 +20,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-        with:
-          path: code/frontend/home-expenses-ui
+#        with:
+#          path: code/frontend/home-expenses-ui
 
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3
@@ -32,18 +32,18 @@ jobs:
 
       - name: Display the path 1
         run: |
-          ls -l
+          ls
         shell: bash
 
       - name: Display the path 2
         run: |
           cd code
-          ls -l
+          ls
 
       - name: Display the path 3
         run: |
           cd code/frontend/home-expenses-ui
-          ls -l
+          ls
           npm ci
 
       - run: |
