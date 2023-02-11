@@ -28,9 +28,10 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
 #          cache: "npm"
-
+#          cache: 'npm'
+#          cache-dependency-path: subdir/package-lock.json
       - run: npm ci
-        working-directory: ./code/frontend/home-expenses-ui
+        working-directory: code/frontend/home-expenses-ui
 
       - run: npm run build --if-present
         working-directory: ./code/frontend/home-expenses-ui
