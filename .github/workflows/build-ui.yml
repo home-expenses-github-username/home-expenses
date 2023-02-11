@@ -27,16 +27,22 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
-#          cache: 'npm'
-#          cache-dependency-path: code/frontend/home-expenses-ui/package-lock.json
+      #          cache: 'npm'
+      #          cache-dependency-path: code/frontend/home-expenses-ui/package-lock.json
 
-      - name: Display the path
+      - name: Display the path 1
+        run: |
+          cd code
+          ls -l
+        shell: bash
+
+      - name: Display the path 2
         run: |
           ls -l
         shell: bash
 
-      - run: npm i
-#        working-directory: code/frontend/home-expenses-ui
+      - run: npm ci --workspace code/frontend/home-expenses-ui
+      #        working-directory: code/frontend/home-expenses-ui
 
       - run: npm run build --if-present
 #        working-directory: ./code/frontend/home-expenses-ui
