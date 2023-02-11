@@ -28,12 +28,13 @@ jobs:
           cache: 'npm'
           cache-dependency-path: code/frontend/home-expenses-ui/package-lock.json
 
-      - name: Display the path 1
+      - name: 'npm CI and Build'
         run: |
           cd code/frontend/home-expenses-ui
           ls
           npm ci
           npm run build --if-present
+          ls -l
 
 
 #      - name: Display the path 3
