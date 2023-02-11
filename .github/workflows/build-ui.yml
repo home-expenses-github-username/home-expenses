@@ -31,7 +31,7 @@ jobs:
 #          cache-dependency-path: code/frontend/home-expenses-ui/package-lock.json
 
       - run: npm ci
-        working-directory: code/frontend/home-expenses-ui
+#        working-directory: code/frontend/home-expenses-ui
 
       - run: npm run build --if-present
-        working-directory: ./code/frontend/home-expenses-ui
+#        working-directory: ./code/frontend/home-expenses-ui
