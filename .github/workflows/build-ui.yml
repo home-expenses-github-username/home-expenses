@@ -20,34 +20,30 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-#        with:
-#          path: code/frontend/home-expenses-ui
 
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
-      #          cache: 'npm'
-      #          cache-dependency-path: code/frontend/home-expenses-ui/package-lock.json
+          cache: 'npm'
+          cache-dependency-path: code/frontend/home-expenses-ui/package-lock.json
 
       - name: Display the path 1
-        run: |
-          ls
-        shell: bash
-
-      - name: Display the path 2
-        run: |
-          cd code
-          ls
-
-      - name: Display the path 3
         run: |
           cd code/frontend/home-expenses-ui
           ls
           npm ci
-
-      - run: |
-          cd code/frontend/home-expenses-ui
           npm run build --if-present
+
+
+#      - name: Display the path 3
+#        run: |
+#          cd code/frontend/home-expenses-ui
+#          ls
+#          npm ci
+#
+#      - run: |
+#          cd code/frontend/home-expenses-ui
+#          npm run build --if-present
 
 #        working-directory: ./code/frontend/home-expenses-ui
