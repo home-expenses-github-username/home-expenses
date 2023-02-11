@@ -34,15 +34,18 @@ jobs:
         run: |
           cd code
           ls -l
-        shell: bash
 
       - name: Display the path 2
         run: |
           ls -l
         shell: bash
 
-      - run: npm ci --workspace code/frontend/home-expenses-ui
+      - run: |
+          cd code/frontend/home-expenses-ui
+          npm ci --workspace code/frontend/home-expenses-ui
       #        working-directory: code/frontend/home-expenses-ui
 
-      - run: npm run build --if-present
+      - run: |
+          cd code/frontend/home-expenses-ui
+          npm run build --if-present
 #        working-directory: ./code/frontend/home-expenses-ui
