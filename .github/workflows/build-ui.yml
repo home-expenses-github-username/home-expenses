@@ -31,9 +31,15 @@ jobs:
       - name: "npm CI and Build"
         run: |
           cd code/frontend/home-expenses-ui
-          ls
           npm ci
           npm run build --if-present
-          npm lint
+
+      - name: "npm test"
+        run: |
+          cd code/frontend/home-expenses-ui
           npm test
-          ls -l
+
+      - name: "npm lint"
+        run: |
+          cd code/frontend/home-expenses-ui
+          npm lint
