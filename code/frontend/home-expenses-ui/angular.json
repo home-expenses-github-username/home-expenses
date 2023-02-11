@@ -100,7 +100,8 @@
               "src/styles.scss"
             ],
             "scripts": [],
-            "browsers": "ChromeHeadless"
+            "browsers": "ChromeHeadless",
+            "karmaConfig": "karma.conf.js"
           }
         },
         "lint": {
