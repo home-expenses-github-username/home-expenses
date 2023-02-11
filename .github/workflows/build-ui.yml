@@ -34,12 +34,12 @@ jobs:
           npm ci
           npm run build --if-present
 
-      - name: "npm test"
+      - name: "Testing"
         run: |
           cd code/frontend/home-expenses-ui
           npm test
 
-      - name: "npm run lint"
+      - name: "Lint"
         run: |
           cd code/frontend/home-expenses-ui
-          npm lint
+          npm run lint
