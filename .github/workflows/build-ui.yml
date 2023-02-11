@@ -30,6 +30,10 @@ jobs:
 #          cache: 'npm'
 #          cache-dependency-path: code/frontend/home-expenses-ui/package-lock.json
 
+      - name: Display the path
+        run: echo $PATH
+        shell: bash
+
       - run: npm i
 #        working-directory: code/frontend/home-expenses-ui
 
