@@ -42,6 +42,7 @@ jobs:
 
       - run: |
           cd code/frontend/home-expenses-ui
+          ls -l
           npm ci
       #        working-directory: code/frontend/home-expenses-ui
 
