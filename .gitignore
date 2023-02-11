@@ -28,7 +28,7 @@ hs_err_pid*
 # See http://help.github.com/ignore-files/ for more about ignoring files.
 
 # Compiled output
-/dist
+/code/frontend/home-expenses-ui/release-ui
 /tmp
 /out-tsc
 /bazel-out
