@@ -39,7 +39,7 @@ jobs:
           cd code/frontend/home-expenses-ui
           npm test
 
-      - name: "npm lint"
+      - name: "npm run lint"
         run: |
           cd code/frontend/home-expenses-ui
           npm lint
