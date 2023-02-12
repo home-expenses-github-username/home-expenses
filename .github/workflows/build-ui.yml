@@ -49,6 +49,8 @@ jobs:
           npm test
 
       - name: "Deploy to Github Pages"
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
         run: |
           cd code/frontend/home-expenses-ui
           npm run deploy
