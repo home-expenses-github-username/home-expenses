@@ -8,7 +8,7 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test --no-watch",
     "lint": "ng lint --fix",
-    "deploy": "ng deploy --base-href=/home-expenses/ --no-silent --name=unlimit1984 --email=unlimit_rmc@mail.ru"
+    "deploy": "ng deploy --base-href=/home-expenses/ --no-silent --name=vova --email=unlimit_rmc@mail.ru"
   },
   "private": true,
   "dependencies": {
