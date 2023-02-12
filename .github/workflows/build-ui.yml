@@ -37,20 +37,20 @@ jobs:
           cd code/frontend/home-expenses-ui
           npm ci
 
-#      - name: "Lint"
-#        run: |
-#          cd code/frontend/home-expenses-ui
-#          npm run lint
+      - name: "Build"
+        run: |
+          cd code/frontend/home-expenses-ui
+          npm run build --if-present
 
-#      - name: "Build"
-#        run: |
-#          cd code/frontend/home-expenses-ui
-#          npm run build --if-present
+      - name: "Test"
+        run: |
+          cd code/frontend/home-expenses-ui
+          npm test
 
-#      - name: "Test"
-#        run: |
-#          cd code/frontend/home-expenses-ui
-#          npm test
+      - name: "Lint"
+        run: |
+          cd code/frontend/home-expenses-ui
+          npm run lint
 
       - name: "Deploy to Github Pages"
         env:
