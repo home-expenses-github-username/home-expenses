@@ -28,10 +28,10 @@ jobs:
           cache: "npm"
           cache-dependency-path: code/frontend/home-expenses-ui/package-lock.json
 
-#      - name: "CI"
-#        run: |
-#          cd code/frontend/home-expenses-ui
-#          npm ci
+      - name: "CI"
+        run: |
+          cd code/frontend/home-expenses-ui
+          npm ci
 
 #      - name: "Lint"
 #        run: |
