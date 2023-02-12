@@ -43,7 +43,12 @@ jobs:
           cd code/frontend/home-expenses-ui
           npm run build --if-present
 
-      - name: "Testing"
+      - name: "Test"
         run: |
           cd code/frontend/home-expenses-ui
           npm test
+
+      - name: "Deploy to Github Pages"
+        run: |
+          cd code/frontend/home-expenses-ui
+          npm run deploy
