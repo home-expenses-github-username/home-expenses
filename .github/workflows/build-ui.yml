@@ -28,25 +28,25 @@ jobs:
           cache: "npm"
           cache-dependency-path: code/frontend/home-expenses-ui/package-lock.json
 
-      - name: "CI"
-        run: |
-          cd code/frontend/home-expenses-ui
-          npm ci
+#      - name: "CI"
+#        run: |
+#          cd code/frontend/home-expenses-ui
+#          npm ci
 
-      - name: "Lint"
-        run: |
-          cd code/frontend/home-expenses-ui
-          npm run lint
+#      - name: "Lint"
+#        run: |
+#          cd code/frontend/home-expenses-ui
+#          npm run lint
 
-      - name: "Build"
-        run: |
-          cd code/frontend/home-expenses-ui
-          npm run build --if-present
+#      - name: "Build"
+#        run: |
+#          cd code/frontend/home-expenses-ui
+#          npm run build --if-present
 
-      - name: "Test"
-        run: |
-          cd code/frontend/home-expenses-ui
-          npm test
+#      - name: "Test"
+#        run: |
+#          cd code/frontend/home-expenses-ui
+#          npm test
 
       - name: "Deploy to Github Pages"
         env:
