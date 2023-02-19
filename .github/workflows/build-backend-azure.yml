@@ -29,11 +29,14 @@ jobs:
 #        with:
 #          arguments: build
 
+#      - name: Build with Gradle
+#        uses: gradle/gradle-build-action@v2
+#        with:
+#          arguments: build
+#          build-root-directory: code/backend/home-expenses-service
+
       - name: Build with Gradle
-        uses: gradle/gradle-build-action@v2
-        with:
-          arguments: build
-          build-root-directory: code/backend/home-expenses-service
+        run: ./code/backend/home-expenses-service/gradlew build
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
