@@ -24,15 +24,16 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
-      - name: Build with Gradle
-        uses: gradle/gradle-build-action@67421db6bd0bf253fb4bd25b31ebb98943c375e1
-        with:
-          arguments: build
+#      - name: Build with Gradle
+#        uses: gradle/gradle-build-action@67421db6bd0bf253fb4bd25b31ebb98943c375e1
+#        with:
+#          arguments: build
 
-      - uses: gradle/gradle-build-action@v2
+      - name: Build with Gradle
+        uses: gradle/gradle-build-action@v2
         with:
           arguments: build
-          build-root-directory: code/backend/home-expenses-service
+          build-root-directory: /code/backend/home-expenses-service
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
