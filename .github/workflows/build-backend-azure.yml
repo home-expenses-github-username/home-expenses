@@ -41,14 +41,14 @@ jobs:
 #          ls -l
 #          gradlew build
 
-      - name: Display github.workspace
-        run: 'echo ${{ github.workspace }}'
+#      - name: Display github.workspace
+#        run: 'echo ${{ github.workspace }}'
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
         with:
           name: home-expenses-backend
-          path: '${{ github.workspace }}/code/backend/home-expenses-service/build/**/*.jar'
+          path: '${{ github.workspace }}/code/backend/home-expenses-service/build/**/*SNAPSHOT.jar'
 
   deploy:
     runs-on: ubuntu-latest
