@@ -63,11 +63,20 @@ jobs:
         with:
           name: java-app
 
+#      - name: Deploy to Azure Web App
+#        id: deploy-to-webapp
+#        uses: azure/webapps-deploy@v2
+#        with:
+#          app-name: 'home-expenses-backend'
+#          slot-name: 'Production'
+#          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_25B4180C3FBC4FE3A7785179B8477DC5 }}
+#          package: '*.jar'
+
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v2
         with:
-          app-name: 'home-expenses-backend'
+          app-name: 'java-app'
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_25B4180C3FBC4FE3A7785179B8477DC5 }}
           package: '*.jar'
