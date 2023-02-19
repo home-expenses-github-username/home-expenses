@@ -42,7 +42,9 @@ jobs:
           ls -l
 
       - name: Build with Gradle
-        run: ./code/backend/home-expenses-service/gradlew build
+        run: |
+          cd code/backend/home-expenses-service
+          gradlew build
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
