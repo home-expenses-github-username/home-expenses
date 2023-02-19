@@ -35,6 +35,12 @@ jobs:
 #          arguments: build
 #          build-root-directory: code/backend/home-expenses-service
 
+      - name: Check directory
+        run: |
+          ls -l
+          cd code/backend/home-expenses-service
+          ls -l
+
       - name: Build with Gradle
         run: ./code/backend/home-expenses-service/gradlew build
 
