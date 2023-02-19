@@ -6,6 +6,8 @@ name: Build & Deploy UI on Github Pages
 on:
   push:
     branches: ["main"]
+    paths:
+      - '/code/frontend/**'
   pull_request:
     branches: ["main"]
 
