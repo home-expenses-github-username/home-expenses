@@ -47,7 +47,7 @@ jobs:
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
         with:
-          name: java-app
+          name: home-expenses-backend
           path: '${{ github.workspace }}/code/backend/home-expenses-service/build/**/*.jar'
 
   deploy:
