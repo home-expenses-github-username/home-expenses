@@ -12,7 +12,7 @@ import java.util.concurrent.atomic.AtomicLong;
 @RequestMapping("/api")
 public class ApiController {
 
-    private static final String template = "Hello - 2, %s!";
+    private static final String template = "Hello, %s!";
     private final AtomicLong counter = new AtomicLong();
 
     @GetMapping("/greeting")
