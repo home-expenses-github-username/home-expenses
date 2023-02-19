@@ -5,7 +5,7 @@ on:
     branches:
       - main
     paths:
-      - '/code/frontend/**'
+      - 'code/frontend/**'
   pull_request:
     types: [opened, synchronize, reopened, closed]
     branches:

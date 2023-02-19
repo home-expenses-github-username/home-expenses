@@ -7,7 +7,7 @@ on:
   push:
     branches: ["main"]
     paths:
-      - '/code/frontend/**'
+      - 'code/frontend/**'
   pull_request:
     branches: ["main"]
 
