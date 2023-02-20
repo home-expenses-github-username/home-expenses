@@ -16,12 +16,13 @@ public class Expense {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Long id;
-    private ZonedDateTime date;
+//    private ZonedDateTime date;
+    private long date;
     private String category;
     private int cost;
     private String comment;
 
-    public Expense(ZonedDateTime date, String category, int cost, String comment) {
+    public Expense(long date, String category, int cost, String comment) {
         this.date = date;
         this.category = category;
         this.cost = cost;

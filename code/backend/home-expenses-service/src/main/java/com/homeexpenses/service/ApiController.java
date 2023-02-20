@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.time.ZonedDateTime;
+import java.util.Date;
 import java.util.concurrent.atomic.AtomicLong;
 
 @RestController
@@ -23,7 +24,7 @@ public class ApiController {
     @GetMapping("/expense")
     public Expense expense (){
         ZonedDateTime now = ZonedDateTime.now();
-        return new Expense(now,"food", 120, "comment 1");
+        return new Expense(now.toInstant().getEpochSecond(),"food", 120, "comment 1");
     }
 
 }

@@ -12,6 +12,7 @@ export class ExpensesService {
   constructor(private httpClient: HttpClient) {}
 
   private backendUrl = 'https://home-expenses-backend.azurewebsites.net';
+  // private backendUrl = 'http://localhost:8080';
 
   public getExpenses(isMockedData: boolean): Observable<Expense[]> {
     if (isMockedData) {

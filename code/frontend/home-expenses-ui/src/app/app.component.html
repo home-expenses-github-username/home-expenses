@@ -56,7 +56,7 @@
 
     <div class="mx-3 mt-2 d-flex justify-content-between form-direction actions-container">
       <div class="action-buttons">
-        <button type="button" class="btn btn-primary">Add</button>
+        <button (click)="save()" type="button" class="btn btn-primary">Add</button>
       </div>
     </div>
   </form>
@@ -78,7 +78,7 @@
         </thead>
         <tbody>
           <tr *ngFor="let expense of expenses">
-            <td>{{ expense.date }}</td>
+            <td>{{ getFormattedDate(expense.date) }}</td>
             <td>{{ expense.category }}</td>
             <td>{{ expense.cost }}</td>
             <td>{{ expense.comment }}</td>

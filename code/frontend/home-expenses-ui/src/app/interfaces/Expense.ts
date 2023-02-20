@@ -1,5 +1,6 @@
 export interface Expense {
-  date: string;
+  // date: string;
+  date: number;
   category: string;
   cost: number;
   comment: string;
