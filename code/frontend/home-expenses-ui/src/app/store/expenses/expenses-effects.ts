@@ -18,8 +18,8 @@ export class ExpensesEffects {
   getExpenses$ = createEffect(() =>
     this.actions$.pipe(
       ofType(getExpenses),
-      switchMap(() => {
-        return this.expensesService.getExpenses().pipe(
+      switchMap((action) => {
+        return this.expensesService.getExpenses(action.isMockedData).pipe(
           map((expenses) => getExpensesResult({ expenses: expenses })),
           catchError((error) => of(getExpensesError({ error })))
         );

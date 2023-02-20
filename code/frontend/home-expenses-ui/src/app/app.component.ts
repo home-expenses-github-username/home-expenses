@@ -15,21 +15,31 @@ export class AppComponent implements OnInit {
   title = 'home-expenses-ui';
   form: FormGroup;
 
+  public isDataMocked = true;
+
   expenses$: Observable<Expense[]>;
   isLoading$: Observable<boolean>;
 
   constructor(private fb: FormBuilder, private store: Store) {
-    this.store.dispatch(getExpenses());
     this.expenses$ = this.store.select(selectExpenses);
     this.isLoading$ = this.store.select(selectIsLoading);
   }
 
   public ngOnInit(): void {
+    this.store.dispatch(getExpenses({ isMockedData: this.isDataMocked }));
+
     this.form = this.fb.group({
       date: this.fb.control(null, [Validators.required]),
       category: this.fb.control('food', [Validators.required]),
       cost: this.fb.control(10, [Validators.required]),
       comment: this.fb.control(null, [Validators.maxLength(50)])
     });
+  }
+
+  public useMockedData(mockMode: boolean) {
+    if (this.isDataMocked !== mockMode) {
+      this.isDataMocked = mockMode;
+      this.store.dispatch(getExpenses({ isMockedData: this.isDataMocked }));
+    }
   }
 }

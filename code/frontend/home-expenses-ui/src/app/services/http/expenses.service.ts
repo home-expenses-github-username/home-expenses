@@ -11,17 +11,20 @@ const expensesMock: Expense[] = require('../../mock/expenses-mock.json');
 export class ExpensesService {
   constructor(private httpClient: HttpClient) {}
 
-  public getExpenses(): Observable<Expense[]> {
-    // return this.httpClient
-    // .get<{ _embedded: {expenses: Expense[]} }>('http://localhost:8080/api/expenses')
-    // .get<{ _embedded: {expenses: Expense[]} }>('/api/expenses')
-    // .pipe(map((response) => response._embedded.expenses));
+  private backendUrl = 'https://home-expenses-backend.azurewebsites.net';
 
-    // return of(expensesMock);
-    return interval(2000).pipe(map(() => expensesMock));
+  public getExpenses(isMockedData: boolean): Observable<Expense[]> {
+    if (isMockedData) {
+      return interval(2000).pipe(map(() => expensesMock));
+    }
+    // .get<{ _embedded: {expenses: Expense[]} }>('http://localhost:8080/api/expenses')
+
+    return this.httpClient
+      .get<{ _embedded: { expenses: Expense[] } }>(`${this.backendUrl}/api/expenses`)
+      .pipe(map((response) => response._embedded.expenses));
   }
 
   public createExpense(expenseBody: Expense): Observable<Expense> {
-    return this.httpClient.post<Expense>('http://localhost:8080/api/expenses', expenseBody);
+    return this.httpClient.post<Expense>(`${this.backendUrl}/api/expenses`, expenseBody);
   }
 }

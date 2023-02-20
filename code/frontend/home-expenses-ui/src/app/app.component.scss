@@ -1,0 +1,24 @@
+//@import 'node_modules/bootstrap/scss/variables';
+
+.action-buttons {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+}
+
+@media only screen and (max-width: 600px) {
+  .mock-toggler {
+    width: 100%;
+  }
+  .form-direction {
+    flex-direction: column;
+  }
+  .actions-container {
+    width: 100%;
+    .action-buttons {
+      button {
+        flex-grow: 1;
+      }
+    }
+  }
+}
