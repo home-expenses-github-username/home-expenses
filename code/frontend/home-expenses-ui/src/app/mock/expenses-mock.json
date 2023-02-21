@@ -1,18 +1,18 @@
 [
   {
-    "date": null,
+    "date": 1676939306000,
     "category": "food",
     "cost": 75,
     "comment": ""
   },
   {
-    "date": null,
+    "date": 1677025706000,
     "category": "housing",
     "cost": 2950,
     "comment": "Not enough money"
   },
   {
-    "date": null,
+    "date": 1676852906000,
     "category": "food",
     "cost": 105,
     "comment": "Auchan"

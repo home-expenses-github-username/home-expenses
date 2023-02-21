@@ -67,7 +67,8 @@
 
   <ng-template #showContent>
     <ng-container *ngIf="expenses$ | async as expenses">
-      <table *ngIf="expenses" class="table">
+      <h6>Showing {{ expenses.length }} records</h6>
+      <table class="table">
         <thead>
           <tr>
             <th>Date</th>

@@ -12,7 +12,7 @@ export const createExpense = createAction('[Expenses] Create expense', props<{ e
 
 export const createExpensesResult = createAction('[Expenses] Create expense result', props<{ expense: Expense }>());
 export const createExpensesError = createAction(
-  '[Expenses] Create expense result',
+  '[Expenses] Create expense error',
   props<{ error: HttpErrorResponse }>()
 );
 

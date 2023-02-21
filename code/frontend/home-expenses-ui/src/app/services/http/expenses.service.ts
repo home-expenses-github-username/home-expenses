@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { interval, map, Observable } from 'rxjs';
+import { map, Observable, timer } from 'rxjs';
 import { Expense } from '../../interfaces/Expense';
+import { environment } from '../../../environments/environment';
 
 const expensesMock: Expense[] = require('../../mock/expenses-mock.json');
 
@@ -11,21 +12,20 @@ const expensesMock: Expense[] = require('../../mock/expenses-mock.json');
 export class ExpensesService {
   constructor(private httpClient: HttpClient) {}
 
-  private backendUrl = 'https://home-expenses-backend.azurewebsites.net';
-  // private backendUrl = 'http://localhost:8080';
+  private url = environment.backendUrl;
 
   public getExpenses(isMockedData: boolean): Observable<Expense[]> {
     if (isMockedData) {
-      return interval(2000).pipe(map(() => expensesMock));
+      return timer(2000).pipe(map(() => expensesMock));
     }
     // .get<{ _embedded: {expenses: Expense[]} }>('http://localhost:8080/api/expenses')
 
     return this.httpClient
-      .get<{ _embedded: { expenses: Expense[] } }>(`${this.backendUrl}/api/expenses`)
+      .get<{ _embedded: { expenses: Expense[] } }>(`${this.url}/api/expenses`)
       .pipe(map((response) => response._embedded.expenses));
   }
 
   public createExpense(expenseBody: Expense): Observable<Expense> {
-    return this.httpClient.post<Expense>(`${this.backendUrl}/api/expenses`, expenseBody);
+    return this.httpClient.post<Expense>(`${this.url}/api/expenses`, expenseBody);
   }
 }

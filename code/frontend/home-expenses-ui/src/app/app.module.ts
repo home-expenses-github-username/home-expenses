@@ -10,6 +10,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ReactiveFormsModule } from '@angular/forms';
 import { reducers } from './store/reducers';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [AppComponent],
@@ -19,6 +21,7 @@ import { reducers } from './store/reducers';
     AppRoutingModule,
     StoreModule.forRoot(reducers),
     EffectsModule.forRoot([ExpensesEffects]),
+    StoreDevtoolsModule.instrument({ logOnly: environment.prod }),
     NgbModule,
     ReactiveFormsModule
   ],

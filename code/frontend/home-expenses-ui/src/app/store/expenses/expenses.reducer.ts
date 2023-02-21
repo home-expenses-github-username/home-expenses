@@ -14,20 +14,23 @@ export interface ExpensesState {
   expenses: Expense[];
   isLoading: boolean;
   error: HttpErrorResponse;
+  isMockedData: boolean;
 }
 
 const expensesInitialState: ExpensesState = {
   expenses: [],
   isLoading: false,
-  error: null
+  error: null,
+  isMockedData: null
 };
 
 const _expensesReducer = createReducer(
   expensesInitialState,
 
-  on(getExpenses, (state) => ({
+  on(getExpenses, (state, action) => ({
     ...state,
-    isLoading: true
+    isLoading: true,
+    isMockedData: action.isMockedData
   })),
   on(getExpensesResult, (state, action) => ({
     ...state,
