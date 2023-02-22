@@ -30,7 +30,7 @@ export class AppComponent implements OnInit {
     this.store.dispatch(getExpenses({ isMockedData: this.isDataMocked }));
 
     this.form = this.fb.group({
-      date: this.fb.control(null, [Validators.required]),
+      date: this.fb.control(new Date().toISOString().substring(0, 10), [Validators.required]),
       category: this.fb.control('food', [Validators.required]),
       cost: this.fb.control(10, [Validators.required]),
       comment: this.fb.control(null, [Validators.maxLength(50)])
