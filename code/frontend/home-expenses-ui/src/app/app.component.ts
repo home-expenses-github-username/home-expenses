@@ -54,8 +54,8 @@ export class AppComponent implements OnInit {
     const rawValue = this.form.getRawValue();
     console.log('rawValue', rawValue);
 
-    // const date = new Date(rawValue.date);
-    const date = new Date();
+    const date = new Date(rawValue.date);
+    // const date = new Date();
     const timestamp: number = date.getTime();
     console.log('date', date);
     console.log('timestamp', timestamp);
