@@ -6,6 +6,14 @@
   justify-content: flex-end;
 }
 
+.spinner-wrapper {
+  height: calc(100vh - 259px);
+  & .spinner {
+    width: 5rem;
+    height: 5rem;
+  }
+}
+
 @media only screen and (max-width: 600px) {
   .mock-toggler {
     width: 100%;
@@ -19,6 +27,15 @@
       button {
         flex-grow: 1;
       }
+    }
+  }
+
+  .spinner-wrapper {
+    margin-top: 4rem;
+    height: auto;
+    & .spinner {
+      width: 3rem;
+      height: 3rem;
     }
   }
 }
