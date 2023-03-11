@@ -38,14 +38,13 @@
     </div>
   </form>
 
-<!--  For testing spinner-->
-<!--  <ng-container *ngIf="isLoading$ | async; else showContent">-->
-<!--    <ng-container *ngTemplateOutlet="spinner"></ng-container>-->
-<!--  </ng-container>-->
-
-  <ng-container *ngTemplateOutlet="spinner">
-
+  <ng-container *ngIf="isLoading$ | async; else showContent">
+    <ng-container *ngTemplateOutlet="spinner"></ng-container>
   </ng-container>
+
+  <!--  For testing spinner-->
+  <!--  <ng-container *ngTemplateOutlet="spinner">-->
+  <!--  </ng-container>-->
 
   <ng-template #showContent>
     <ng-container *ngIf="expenses$ | async as expenses">
