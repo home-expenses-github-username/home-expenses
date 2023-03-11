@@ -12,4 +12,4 @@ export const selectIsLoading = createSelector(selectExpensesState, (state: Expen
 
 export const selectError = createSelector(selectExpensesState, (state: ExpensesState) => state.error);
 
-export const selectIsMockedData = createSelector(selectExpensesState, (state: ExpensesState) => state.isMockedData);
+// export const selectIsMockedData = createSelector(selectExpensesState, (state: ExpensesState) => state.isMockedData);

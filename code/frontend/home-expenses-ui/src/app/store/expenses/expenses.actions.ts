@@ -2,7 +2,8 @@ import { createAction, props } from '@ngrx/store';
 import { Expense } from '../../interfaces/Expense';
 import { HttpErrorResponse } from '@angular/common/http';
 
-export const getExpenses = createAction('[Expenses] Get expenses', props<{ isMockedData: boolean }>());
+// export const getExpenses = createAction('[Expenses] Get expenses', props<{ isMockedData: boolean }>());
+export const getExpenses = createAction('[Expenses] Get expenses');
 
 export const getExpensesResult = createAction('[Expenses] Get expenses result', props<{ expenses: Expense[] }>());
 

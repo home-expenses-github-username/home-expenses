@@ -12,9 +12,11 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { reducers } from './store/reducers';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
+import { ExpensesComponent } from './pages/expenses/expenses.component';
+import { AllExpensesComponent } from './pages/all-expenses/all-expenses.component';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, ExpensesComponent, AllExpensesComponent],
   imports: [
     BrowserModule,
     HttpClientModule,

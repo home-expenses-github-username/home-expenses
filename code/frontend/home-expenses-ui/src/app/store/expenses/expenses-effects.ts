@@ -10,7 +10,6 @@ import {
 } from './expenses.actions';
 import { catchError, map, of, switchMap, withLatestFrom } from 'rxjs';
 import { ExpensesService } from '../../services/http/expenses.service';
-import { selectIsMockedData } from './expenses.selectors';
 import { Store } from '@ngrx/store';
 
 @Injectable()
@@ -21,7 +20,7 @@ export class ExpensesEffects {
     this.actions$.pipe(
       ofType(getExpenses),
       switchMap((action) => {
-        return this.expensesService.getExpenses(action.isMockedData).pipe(
+        return this.expensesService.getExpenses().pipe(
           map((expenses) => getExpensesResult({ expenses: expenses })),
           catchError((error) => of(getExpensesError({ error })))
         );
@@ -44,9 +43,10 @@ export class ExpensesEffects {
   createExpensesResult$ = createEffect(() =>
     this.actions$.pipe(
       ofType(createExpensesResult),
-      withLatestFrom(this.store.select(selectIsMockedData)),
-      switchMap(([, isMockedData]) => {
-        return of(getExpenses({ isMockedData: isMockedData }));
+      // withLatestFrom(this.store.select(selectIsMockedData)),
+      // switchMap(([, isMockedData]) => {
+      switchMap(() => {
+        return of(getExpenses());
       })
     )
   );
