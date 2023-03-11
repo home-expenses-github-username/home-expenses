@@ -18,6 +18,16 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
+      - uses: cschleiden/replace-tokens@v1
+        with:
+          tokenPrefix: '__'
+          tokenSuffix: '__'
+          files: '["**/application.properties"]'
+        env:
+          GH_DB_URL: ${{ secrets.GH_DB_URL }}
+          GH_DB_USERNAME: ${{ secrets.GH_DB_USERNAME }}
+          GH_DB_PASSWORD: ${{ secrets.GH_DB_PASSWORD }}
+
       - name: Set up Java version
         uses: actions/setup-java@v3
         with:
