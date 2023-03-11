@@ -28,6 +28,14 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
+      - uses: cschleiden/replace-tokens@v1
+        with:
+          tokenPrefix: '__'
+          tokenSuffix: '__'
+          files: '["**/expenses.component.html"]'
+        env:
+          MY_PLACEHOLDER: ${{ secrets.MY_TEST_SECRET }}
+
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3
         with:
