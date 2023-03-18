@@ -34,15 +34,17 @@ jobs:
         uses: azure/CLI@v1
         with:
           inlineScript: |
-            echo dbUrl=$(az keyvault secret show --vault-name he-keyvault --name db-url --query value) >> $GITHUB_ENV
-            echo dbUsername=$(az keyvault secret show --vault-name he-keyvault --name db-username --query value) >> $GITHUB_ENV
-            echo dbPassword=$(az keyvault secret show --vault-name he-keyvault --name db-password --query value) >> $GITHUB_ENV
-
-#      - name: Use the value
-#        id: step_two
-#        run: |
-#          echo "${{ env.myVar }}"
-
+            dbUrl=$(az keyvault secret show --vault-name he-keyvault --name db-url --query value)
+            echo "::add-mask::$dbUrl"
+            echo dbUrl=$dbUrl >> $GITHUB_ENV
+            
+            dbUsername=$(az keyvault secret show --vault-name he-keyvault --name db-username --query value)
+            echo "::add-mask::$dbUsername"
+            echo dbUsername=$dbUsername >> $GITHUB_ENV
+            
+            dbPassword=$(az keyvault secret show --vault-name he-keyvault --name db-password --query value)
+            echo "::add-mask::$dbPassword"
+            echo dbPassword=$dbPassword >> $GITHUB_ENV
 
       - uses: cschleiden/replace-tokens@v1
         with:
