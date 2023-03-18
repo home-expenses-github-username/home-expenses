@@ -9,6 +9,8 @@ on:
       - main
     paths:
       - 'code/backend/**'
+      - '.github/workflows/build-backend-azure.yml'
+
   workflow_dispatch:
 
 permissions:
@@ -45,6 +47,9 @@ jobs:
             dbPassword=$(az keyvault secret show --vault-name he-keyvault --name db-password --query value)
             echo "::add-mask::$dbPassword"
             echo dbPassword=$dbPassword >> $GITHUB_ENV
+            
+            echo dbUsernameTest=$(az keyvault secret show --vault-name he-keyvault --name db-username --query value) >> $GITHUB_ENV
+            echo ${{ env.dbUsernameTest }}
 
       - uses: cschleiden/replace-tokens@v1
         with:
@@ -58,6 +63,12 @@ jobs:
 #          GH_DB_URL: ${{ secrets.GH_DB_URL }}
 #          GH_DB_USERNAME: ${{ secrets.GH_DB_USERNAME }}
 #          GH_DB_PASSWORD: ${{ secrets.GH_DB_PASSWORD }}
+
+      - name: Print application.properties
+        run: |
+          pwd
+          ls -l
+          cat code/backend/home-expenses-service/src/main/resources/application.properties
 
       - name: Set up Java version
         uses: actions/setup-java@v3
