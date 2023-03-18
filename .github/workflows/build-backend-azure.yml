@@ -83,7 +83,7 @@ jobs:
 #        run: 'echo ${{ github.workspace }}'
 
       - name: Upload artifact for deployment job
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: home-expenses-backend
           path: '${{ github.workspace }}/code/backend/home-expenses-service/build/**/*SNAPSHOT.jar'
@@ -97,7 +97,7 @@ jobs:
 
     steps:
       - name: Download artifact from build job
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v3
         with:
           name: home-expenses-backend
 
