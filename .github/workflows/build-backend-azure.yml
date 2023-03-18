@@ -48,7 +48,7 @@ jobs:
             echo "::add-mask::$dbPassword"
             echo dbPassword=$dbPassword >> $GITHUB_ENV
             
-            echo vovaTest1=$(az keyvault secret show --vault-name he-keyvault --name vova-test1 --query value) >> $GITHUB_ENV
+            echo vovaTest1=$(az keyvault secret show --vault-name he-keyvault --name vova-test1 --query value --out tsv) >> $GITHUB_ENV
 #
 #      - name: Print details 1
 #        run: |
