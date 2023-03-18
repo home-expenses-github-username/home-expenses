@@ -64,8 +64,9 @@ jobs:
 #          GH_DB_USERNAME: ${{ secrets.GH_DB_USERNAME }}
 #          GH_DB_PASSWORD: ${{ secrets.GH_DB_PASSWORD }}
 
-      - name: Print application.properties
+      - name: Print details
         run: |
+          echo ${{ env.dbUsernameTest }}
           pwd
           ls -l
           cat code/backend/home-expenses-service/src/main/resources/application.properties
