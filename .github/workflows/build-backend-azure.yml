@@ -48,8 +48,8 @@ jobs:
             echo "::add-mask::$dbPassword"
             echo dbPassword=$dbPassword >> $GITHUB_ENV
             
-            echo dbUsernameTest=$(az keyvault secret show --vault-name he-keyvault --name db-username --query value) >> $GITHUB_ENV
-            echo ${{ env.dbUsernameTest }}
+            echo vovaTest=$(az keyvault secret show --vault-name he-keyvault --name vova-test --query value) >> $GITHUB_ENV
+            echo ${{ env.vovaTest }}
 
       - uses: cschleiden/replace-tokens@v1
         with:
@@ -67,6 +67,8 @@ jobs:
       - name: Print details
         run: |
           echo ${{ env.dbUsernameTest }}
+          echo ${{ env.vovaTest }}
+          echo "env.vovaTest: ${{ env.vovaTest }}"
           pwd
           ls -l
           cat code/backend/home-expenses-service/src/main/resources/application.properties
