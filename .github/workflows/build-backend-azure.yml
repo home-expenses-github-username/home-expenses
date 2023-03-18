@@ -48,8 +48,13 @@ jobs:
             echo "::add-mask::$dbPassword"
             echo dbPassword=$dbPassword >> $GITHUB_ENV
             
-            echo vovaTest=$(az keyvault secret show --vault-name he-keyvault --name vova-test --query value) >> $GITHUB_ENV
-            echo ${{ env.vovaTest }}
+            echo vovaTest1=$(az keyvault secret show --vault-name he-keyvault --name vova-test --query value) >> $GITHUB_ENV
+
+      - name: Azure key vault - Get Secrets - Deprecated
+        uses: Azure/get-keyvault-secrets@v1.2
+        with:
+          keyvault: he-keyvault
+          secrets: vova-test
 
       - uses: cschleiden/replace-tokens@v1
         with:
@@ -60,15 +65,16 @@ jobs:
           GH_DB_URL: ${{ env.dbUrl }}
           GH_DB_USERNAME: ${{ env.dbUsername }}
           GH_DB_PASSWORD: ${{ env.dbPassword }}
+          VOVA_TEST1: ${{ env.vovaTest1 }}
+          VOVA_TEST2: ${{ env.vova-test }}
 #          GH_DB_URL: ${{ secrets.GH_DB_URL }}
 #          GH_DB_USERNAME: ${{ secrets.GH_DB_USERNAME }}
 #          GH_DB_PASSWORD: ${{ secrets.GH_DB_PASSWORD }}
 
       - name: Print details
         run: |
-          echo ${{ env.dbUsernameTest }}
-          echo ${{ env.vovaTest }}
-          echo "env.vovaTest: ${{ env.vovaTest }}"
+          echo "env.vovaTest1: ${{ env.vovaTest1 }}"
+          echo "env.vova-test: ${{ env.vova-test }}"
           pwd
           ls -l
           cat code/backend/home-expenses-service/src/main/resources/application.properties
