@@ -52,14 +52,11 @@ jobs:
         with:
           tokenPrefix: '__'
           tokenSuffix: '__'
-          files: '["**/application.properties"]'
+          files: '["code/backend/home-expenses-service/src/main/resources/application.properties"]'
         env:
           GH_DB_URL: ${{ env.dbUrl }}
           GH_DB_USERNAME: ${{ env.dbUsername }}
           GH_DB_PASSWORD: ${{ env.dbPassword }}
-#          GH_DB_URL: ${{ secrets.GH_DB_URL }}
-#          GH_DB_USERNAME: ${{ secrets.GH_DB_USERNAME }}
-#          GH_DB_PASSWORD: ${{ secrets.GH_DB_PASSWORD }}
 
       - name: Set up Java version
         uses: actions/setup-java@v3
@@ -72,15 +69,6 @@ jobs:
         with:
           arguments: build -x test
           build-root-directory: code/backend/home-expenses-service
-
-#      - name: Build with Gradle
-#        run: |
-#          cd code/backend/home-expenses-service
-#          ls -l
-#          gradlew build
-
-#      - name: Display github.workspace
-#        run: 'echo ${{ github.workspace }}'
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v3

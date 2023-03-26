@@ -23,14 +23,6 @@ jobs:
         with:
           submodules: true
 
-      - uses: cschleiden/replace-tokens@v1
-        with:
-          tokenPrefix: '__'
-          tokenSuffix: '__'
-          files: '["**/expenses.component.html"]'
-        env:
-          MY_PLACEHOLDER: ${{ secrets.MY_TEST_SECRET }}
-
       - name: Build And Deploy
         id: builddeploy
         uses: Azure/static-web-apps-deploy@v1
