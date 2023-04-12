@@ -7,10 +7,10 @@ on:
     paths:
       - 'code/frontend/**'
       - '.github/workflows/build-ui-azure.yml'
-  pull_request:
-    types: [opened, synchronize, reopened, closed]
-    branches:
-      - main
+#  pull_request:
+#    types: [opened, synchronize, reopened, closed]
+#    branches:
+#      - main
   workflow_dispatch:
 
 jobs:

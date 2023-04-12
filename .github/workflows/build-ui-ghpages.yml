@@ -8,8 +8,9 @@ on:
     branches: ["main"]
     paths:
       - 'code/frontend/**'
-  pull_request:
-    branches: ["main"]
+      - '.github/workflows/build-ui-ghpages.yml'
+#  pull_request:
+#    branches: ["main"]
   workflow_dispatch:
 
 #Could be main config
