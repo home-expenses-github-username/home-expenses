@@ -8,7 +8,7 @@ on:
 #    - cron: '*/5 * * * *'
     - cron: '*/5 * * * Mon-Fri'
 
-#  workflow_dispatch:
+  workflow_dispatch:
 
 jobs:
   my_task:
