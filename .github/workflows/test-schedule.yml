@@ -5,9 +5,10 @@ on:
   #Run at 9:55am (UTC+2) Mo-Fr
 
   schedule:
-    - cron: '*/5 * * * *'
+#    - cron: '*/5 * * * *'
+    - cron: '*/5 * * * Mon-Fri'
 
-  workflow_dispatch:
+#  workflow_dispatch:
 
 jobs:
   my_task:
