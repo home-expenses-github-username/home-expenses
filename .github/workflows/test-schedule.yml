@@ -2,10 +2,10 @@ name: Test CRON Scheduler
 
 on:
 
-  #Run at 9:55am (UTC+2) Mo-Fr
+  #Run every day at 09:00 UTC
 
   schedule:
-    - cron: "*/5 * * * Mon-Fri"
+    - cron: 0 9 * * *
 
   workflow_dispatch:
 
