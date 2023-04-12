@@ -1,0 +1,22 @@
+name: Test CRON Scheduler
+
+on:
+
+  #Run at 9:55am (UTC+2) Mo-Fr
+
+  schedule:
+    - cron: '*/5 * * * *'
+
+  workflow_dispatch:
+
+jobs:
+  my_task:
+    name: Check scheduler
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - run: |
+          echo "Run tick"
+        shell: bash
