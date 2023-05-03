@@ -24,6 +24,7 @@
   },
   "lint-staged": {
     "src/**/*.ts": [
+      "prettier --write",
       "npm run lint"
     ]
   },
