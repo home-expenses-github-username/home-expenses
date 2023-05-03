@@ -3,3 +3,4 @@
 
 cd code/backend/home-expenses-auth
 npm run lint-he-auth
+npm run test
