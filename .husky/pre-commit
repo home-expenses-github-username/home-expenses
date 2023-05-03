@@ -1,0 +1,5 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+cd code/backend/home-expenses-auth
+npm run lint-he-auth
