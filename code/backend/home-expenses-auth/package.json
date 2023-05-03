@@ -8,6 +8,7 @@
   "scripts": {
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
+    "format-simple": "prettier --write",
     "start": "nest start",
     "start:dev": "nest start --watch",
     "start:debug": "nest start --debug --watch",
@@ -23,8 +24,8 @@
     "lint-he-auth": "lint-staged"
   },
   "lint-staged": {
-    "*.ts": [
-      "prettier --write",
+    "src/**/*.ts": [
+      "npm run format",
       "npm run lint"
     ]
   },
