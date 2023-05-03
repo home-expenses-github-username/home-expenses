@@ -23,7 +23,7 @@
     "lint-he-auth": "lint-staged"
   },
   "lint-staged": {
-    "src/**/*.ts": [
+    "*.ts": [
       "prettier --write",
       "npm run lint"
     ]
