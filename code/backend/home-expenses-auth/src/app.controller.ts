@@ -7,6 +7,8 @@ export class AppController {
 
   @Get()
   getHello(): string {
+    // eslint-disable-next-line no-console
+    console.log('hello');
     return this.appService.getHello();
   }
 }
