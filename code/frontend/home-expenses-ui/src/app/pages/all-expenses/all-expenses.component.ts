@@ -42,13 +42,9 @@ export class AllExpensesComponent implements OnInit {
 
   private mapFormToRequestBody(): Expense {
     const rawValue = this.form.getRawValue();
-    console.log('rawValue', rawValue);
 
     const date = new Date(rawValue.date);
-    // const date = new Date();
     const timestamp: number = date.getTime();
-    console.log('date', date);
-    console.log('timestamp', timestamp);
 
     return {
       date: timestamp,
