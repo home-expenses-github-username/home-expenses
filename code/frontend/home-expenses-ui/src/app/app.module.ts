@@ -14,9 +14,19 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 import { ExpensesComponent } from './pages/expenses/expenses.component';
 import { AllExpensesComponent } from './pages/all-expenses/all-expenses.component';
+import { SignupComponent } from './pages/signup/signup.component';
+import { SigningComponent } from './pages/signin/signing.component';
+import { HeaderComponent } from './header/header.component';
 
 @NgModule({
-  declarations: [AppComponent, ExpensesComponent, AllExpensesComponent],
+  declarations: [
+    AppComponent,
+    ExpensesComponent,
+    AllExpensesComponent,
+    SignupComponent,
+    SigningComponent,
+    HeaderComponent
+  ],
   imports: [
     BrowserModule,
     HttpClientModule,
