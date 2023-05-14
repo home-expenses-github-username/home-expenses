@@ -1,3 +1,8 @@
+/*
+ * Copyright (C) Vladimir Vysokomornyi
+ * All Rights Reserved.
+ */
+
 import { Test, TestingModule } from '@nestjs/testing';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
