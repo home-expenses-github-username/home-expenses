@@ -39,6 +39,7 @@ hs_err_pid*
 
 /code/backend/home-expenses-auth/.angular
 /code/backend/home-expenses-auth/node_modules
+/code/backend/home-expenses-auth/dist
 
 npm-debug.log
 yarn-error.log
