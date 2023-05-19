@@ -1,11 +1,8 @@
 import { Injectable } from '@nestjs/common';
 
 @Injectable()
-export class AppService {
+export class TestService {
   getHello(): string {
-    // eslint-disable-next-line no-console
-    console.log('hello service');
-
     return 'Hello World!';
   }
 }

@@ -4,8 +4,6 @@
  */
 
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { DatabaseModule } from './database/database.module';
 import { UserDbService } from './database/user/service/user-db.service';
 import { userProviders } from './database/user/user.provider';
@@ -13,6 +11,8 @@ import { UserController } from './user/user.controller';
 import { MailerModule } from '@nestjs-modules/mailer';
 import { MailService } from './services/mailer/mail.service';
 import { MailController } from './controllers/mail/mail.controller';
+import { TestService } from './services/test/test.service';
+import { TestController } from './controllers/test/test.controller';
 
 @Module({
   imports: [
@@ -56,7 +56,7 @@ import { MailController } from './controllers/mail/mail.controller';
       // }
     })
   ],
-  controllers: [AppController, UserController, MailController],
-  providers: [AppService, UserDbService, ...userProviders, MailService]
+  controllers: [UserController, MailController, TestController],
+  providers: [UserDbService, ...userProviders, MailService, TestService]
 })
 export class AppModule {}

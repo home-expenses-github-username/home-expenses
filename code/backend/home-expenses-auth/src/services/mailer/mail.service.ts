@@ -23,10 +23,10 @@ export class MailService {
         // html: '<b>welcome</b>' // HTML body content
       })
       .then((success) => {
-        console.log(success);
+        // console.log(success);
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
       });
   }
 
