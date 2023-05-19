@@ -15,7 +15,7 @@ import { environment } from '../environments/environment';
 import { ExpensesComponent } from './pages/expenses/expenses.component';
 import { AllExpensesComponent } from './pages/all-expenses/all-expenses.component';
 import { SignupComponent } from './pages/signup/signup.component';
-import { SigningComponent } from './pages/signin/signing.component';
+import { SigninComponent } from './pages/signin/signin.component';
 import { HeaderComponent } from './header/header.component';
 
 @NgModule({
@@ -24,7 +24,7 @@ import { HeaderComponent } from './header/header.component';
     ExpensesComponent,
     AllExpensesComponent,
     SignupComponent,
-    SigningComponent,
+    SigninComponent,
     HeaderComponent
   ],
   imports: [

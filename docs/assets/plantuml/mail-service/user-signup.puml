@@ -1,0 +1,6 @@
+@startuml
+title User Signup
+"Register user in browser" -> "Create draft user in DB" : Create login/password
+"Create draft user in DB" -> "Submit user in DB" : Confirm user via email
+"Submit user in DB" -> "Return HTTP 201" : Success if credentials are right
+@enduml

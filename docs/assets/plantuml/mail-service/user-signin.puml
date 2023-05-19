@@ -1,0 +1,6 @@
+@startuml
+title User Signin
+"Login in browser" -> "Check user in DB" : Provide login/password
+"Check user in DB" -> "Return HTTP 200" : Success if credentials are right
+"Check user in DB" -> "Return HTTP 401" : Failed authentication
+@enduml

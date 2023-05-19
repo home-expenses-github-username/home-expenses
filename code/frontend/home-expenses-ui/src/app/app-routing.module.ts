@@ -3,7 +3,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { AllExpensesComponent } from './pages/all-expenses/all-expenses.component';
 import { ExpensesComponent } from './pages/expenses/expenses.component';
 import { AuthGuardGuard } from './guards/auth-guard.guard';
-import { SigningComponent } from './pages/signin/signing.component';
+import { SigninComponent } from './pages/signin/signin.component';
+import { SignupComponent } from './pages/signup/signup.component';
 
 const routes: Routes = [
   {
@@ -17,8 +18,8 @@ const routes: Routes = [
       },
       { path: 'expenses', component: ExpensesComponent },
       { path: 'all-expenses', component: AllExpensesComponent },
-      { path: 'signing', component: SigningComponent },
-      { path: 'signup', component: SigningComponent },
+      { path: 'signin', component: SigninComponent },
+      { path: 'signup', component: SignupComponent },
       { path: 'logout', redirectTo: 'signing' }
     ]
   }

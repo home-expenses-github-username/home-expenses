@@ -77,3 +77,11 @@ You can deploy frontend app on two places: GitHub pages and Azure
 ### Documentation
 
 - Adding Database: https://learn.microsoft.com/en-us/azure/azure-sql/database/single-database-create-quickstart?view=azuresql&tabs=azure-portal
+
+
+### Architecture
+
+#### Sending Mail Service
+
+![](docs/assets/plantuml/mail-service/user-signup.svg)
+![](docs/assets/plantuml/mail-service/user-signin.svg)

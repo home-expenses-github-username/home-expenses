@@ -13,8 +13,8 @@ export const databaseProviders = [
     provide: DATA_SOURCE,
     useFactory: async () => {
       const dataSource = new DataSource({
-        type: 'mssql',
-        host: 'db-host-in-KeyVault>',
+        type: 'db-type-in-KeyVault',
+        host: 'db-host-in-KeyVault',
         username: 'db-username-in-KeyVault',
         password: 'db-password-in-KeyVault',
         database: 'db-name-in-KeyVault',

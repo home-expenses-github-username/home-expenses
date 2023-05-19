@@ -7,7 +7,6 @@ import { Component } from '@angular/core';
 })
 export class HeaderComponent {
   isAuthenticated = true;
-  active = 1;
 
   onLogout() {
     this.isAuthenticated = false;
