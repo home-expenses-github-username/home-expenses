@@ -11,30 +11,37 @@ GitHub Pages:
 
 - [Quick Start](#quick-start)
 - [Development](#development)
-    - [Local Setup](#local-setup)
-      - [Backend](#backend)
-      - [Frontend](#frontend)
-    - [Deploy to Azure](#deploy-to-azure)
-      - [Backend Azure](#backend-azure)
-      - [Frontend Azure](#frontend-azure)
-    - [Certificates](#certificates)
-    - [Testing](#testing)
-- [Documentation](#documentation) 
----
+  - [Local Setup](#local-setup)
+    - [Backend](#backend)
+    - [Frontend](#frontend)
+  - [Deploy to Azure](#deploy-to-azure)
+    - [Backend Azure](#backend-azure)
+    - [Frontend Azure](#frontend-azure)
+  - [Certificates](#certificates)
+  - [Testing](#testing)
+- [Documentation](#documentation)
+- [Architecture](#architecture)
+  - [Sending Mail Service](#sending-mail-service)
+    - [User Signup](#user-signup)
+    - [User Signin](#user-signin)
 
+---
 
 ### Quick start
 
 ### Development
 
 #### Local Setup
+
 ##### Backend
+
 1. Install java 17
 2. Set environment variable `JAVA_HOME` to java folder (Example for Windows: `C:\Program Files\Java\jdk-17`)
 3. Add `%JAVA_HOME\bin` to `PATH` variable
 4. For local running use the command `./gradlew bootRun` and check url: `localhost:8080/api`
 
 ##### Frontend
+
 1. Install nodejs version 18.14.0 from [here](https://nodejs.org/download/release/v18.14.0/)
    - You can try the latest version, but there is no guaranty that it will work properly
    - This project runs on `node` v18.14.0 and `npm` v9.3.1 and uses `angular-cli` v15
@@ -46,24 +53,29 @@ GitHub Pages:
 4. Navigate to: `https://local.home-expenses.com:8443`
 
 #### Deploy to Azure
+
 ##### Backend Azure
+
 - OPTION 1 (Azure CLI):
-    - Install Azure CLI using the following link: https://learn.microsoft.com/en-us/cli/azure/install-azure-cli-windows
-    - Run `az -v` for checking version
-    - Run `az login` and provide Azure credentials in the browser
-    - Run `./gradlew azureWebAppDeploy` from `code/backend/home-expenses-service` folder
+  - Install Azure CLI using the following link: https://learn.microsoft.com/en-us/cli/azure/install-azure-cli-windows
+  - Run `az -v` for checking version
+  - Run `az login` and provide Azure credentials in the browser
+  - Run `./gradlew azureWebAppDeploy` from `code/backend/home-expenses-service` folder
 - OPTION 2 (pushing change to `main`)
-    - push new change to `main` branch for triggering [Build & Deploy BACKEND on Azure](https://github.com/home-expenses-github-username/home-expenses/actions/workflows/build-backend-azure.yml)
+  - push new change to `main` branch for triggering [Build & Deploy BACKEND on Azure](https://github.com/home-expenses-github-username/home-expenses/actions/workflows/build-backend-azure.yml)
 - OPTION 3 (triggering GitHub action)
-    - manually trigger [Build & Deploy BACKEND on Azure](https://github.com/home-expenses-github-username/home-expenses/actions/workflows/build-backend-azure.yml)
+  - manually trigger [Build & Deploy BACKEND on Azure](https://github.com/home-expenses-github-username/home-expenses/actions/workflows/build-backend-azure.yml)
 - Navigate to: `https://home-expenses-backend.azurewebsites.net/api`
 
 ##### Frontend Azure
-You can deploy frontend app on two places: GitHub pages and Azure 
-- GitHub:  [Build & Deploy UI on Github Pages](https://github.com/home-expenses-github-username/home-expenses/actions/workflows/build-ui-ghpages.yml)
+
+You can deploy frontend app on two places: GitHub pages and Azure
+
+- GitHub: [Build & Deploy UI on Github Pages](https://github.com/home-expenses-github-username/home-expenses/actions/workflows/build-ui-ghpages.yml)
   - there is no backend here
 - Azure: [Build & Deploy UI on Azure](https://github.com/home-expenses-github-username/home-expenses/actions/workflows/build-ui-azure.yml)
-  - the entire solution: backend and frontend setup on Azure  
+  - the entire solution: backend and frontend setup on Azure
+
 1. Pushing change to `main` (the change inside `code/frontend/home-expenses-ui` folder) will trigger both actions:
    - [Build & Deploy UI on Github Pages](https://github.com/home-expenses-github-username/home-expenses/actions/workflows/build-ui-ghpages.yml)
    - [Build & Deploy UI on Azure](https://github.com/home-expenses-github-username/home-expenses/actions/workflows/build-ui-azure.yml)
@@ -78,10 +90,14 @@ You can deploy frontend app on two places: GitHub pages and Azure
 
 - Adding Database: https://learn.microsoft.com/en-us/azure/azure-sql/database/single-database-create-quickstart?view=azuresql&tabs=azure-portal
 
-
 ### Architecture
 
 #### Sending Mail Service
 
+##### User Signup
+
 ![](docs/assets/plantuml/mail-service/user-signup.svg)
+
+##### User Signin
+
 ![](docs/assets/plantuml/mail-service/user-signin.svg)
