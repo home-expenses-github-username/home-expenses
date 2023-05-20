@@ -24,7 +24,7 @@ export class MailService {
       to: credentials.email,
       subject: 'Welcome to Home Expenses App. Confirm your Email',
       text: 'Activate your account',
-      html: `<p>Go to https://local.home-expenses.com:8443/signup-activate and finish registration using your credentials and this code: ${credentials.verificationCode}</p>`
+      html: `<p>Go to https://local.home-expenses.com:8443/signup-finish and finish registration using your credentials and this code: ${credentials.verificationCode}</p>`
     });
   }
 }
