@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { signupStart } from '../../store/auth/auth.actions';
+import { signupFinish } from '../../store/auth/auth.actions';
 
 @Component({
-  selector: 'app-signup',
-  templateUrl: './signup.component.html',
-  styleUrls: ['./signup.component.scss']
+  selector: 'app-signup-finish',
+  templateUrl: './signup-finish.component.html',
+  styleUrls: ['./signup-finish.component.scss']
 })
-export class SignupComponent implements OnInit {
+export class SignupFinishComponent implements OnInit {
   public form: FormGroup;
 
   constructor(private fb: FormBuilder, private store: Store) {}
@@ -17,22 +17,23 @@ export class SignupComponent implements OnInit {
     this.form = this.fb.group({
       email: this.fb.control('', [Validators.required]),
       password: this.fb.control('', [Validators.required]),
-      repeatedPassword: this.fb.control('', [Validators.required])
+      verificationCode: this.fb.control('', [Validators.required])
     });
   }
 
-  signupStart() {
-    if (this.form.valid && this.form.controls['password'].value === this.form.controls['repeatedPassword'].value) {
+  activate() {
+    if (this.form.valid) {
       this.store.dispatch(
-        signupStart({
+        signupFinish({
           credentials: {
             email: this.form.controls['email'].value,
-            password: this.form.controls['password'].value
+            password: this.form.controls['password'].value,
+            verificationCode: this.form.controls['verificationCode'].value
           }
         })
       );
     } else {
-      console.log('Form invalid', this.form);
+      // console.log('Form invalid', this.form);
     }
   }
 }

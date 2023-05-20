@@ -5,6 +5,7 @@ import { UserDbService } from '../../database/user/service/user-db.service';
 import {
   ACTIVATION_USER_IS_ALREADY_DONE,
   ALREADY_REGISTERED_ERROR,
+  EXPECTED_ACTIVATION_ERROR,
   USER_NOT_FOUND_ERROR,
   VERIFICATION_CODE_ERROR,
   WRONG_PASSWORD_ERROR
@@ -46,5 +47,24 @@ export class AuthController {
     }
 
     return this.mailService.signupFinish(existedUser);
+  }
+
+  @Post('signin')
+  async signin(@Body() credentials: Credentials) {
+    const existedUser = await this.userDbService.findUser(credentials.email);
+    if (!existedUser) {
+      throw new BadRequestException(USER_NOT_FOUND_ERROR);
+    }
+
+    if (existedUser.preview) {
+      throw new UnauthorizedException(EXPECTED_ACTIVATION_ERROR);
+    }
+
+    const isCorrectPassword = await compare(credentials.password, existedUser.passwordHash);
+    if (!isCorrectPassword) {
+      throw new UnauthorizedException(WRONG_PASSWORD_ERROR);
+    }
+
+    return existedUser;
   }
 }

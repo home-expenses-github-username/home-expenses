@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { login } from '../../store/auth/auth.actions';
+import { signin } from '../../store/auth/auth.actions';
 
 @Component({
   selector: 'app-signin',
@@ -22,7 +22,14 @@ export class SigninComponent implements OnInit {
 
   login() {
     if (this.form.valid) {
-      this.store.dispatch(login());
+      this.store.dispatch(
+        signin({
+          credentials: {
+            email: this.form.controls['email'].value,
+            password: this.form.controls['password'].value
+          }
+        })
+      );
     } else {
       console.log('Form invalid', this.form);
     }

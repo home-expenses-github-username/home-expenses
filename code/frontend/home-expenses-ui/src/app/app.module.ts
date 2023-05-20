@@ -17,6 +17,9 @@ import { AllExpensesComponent } from './pages/all-expenses/all-expenses.componen
 import { SignupComponent } from './pages/signup/signup.component';
 import { SigninComponent } from './pages/signin/signin.component';
 import { HeaderComponent } from './header/header.component';
+import { SignupFinishComponent } from './pages/signup-finish/signup-finish.component';
+import { ErrorPageComponent } from './pages/error-page/error-page.component';
+import { AuthEffects } from './store/auth/auth.effects';
 
 @NgModule({
   declarations: [
@@ -25,14 +28,16 @@ import { HeaderComponent } from './header/header.component';
     AllExpensesComponent,
     SignupComponent,
     SigninComponent,
-    HeaderComponent
+    HeaderComponent,
+    SignupFinishComponent,
+    ErrorPageComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
     StoreModule.forRoot(reducers),
-    EffectsModule.forRoot([ExpensesEffects]),
+    EffectsModule.forRoot([ExpensesEffects, AuthEffects]),
     StoreDevtoolsModule.instrument({ logOnly: environment.prod }),
     NgbModule,
     ReactiveFormsModule
