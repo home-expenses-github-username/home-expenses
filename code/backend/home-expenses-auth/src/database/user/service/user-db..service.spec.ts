@@ -6,7 +6,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { UserDbService } from './user-db.service';
 
-xdescribe('UserService', () => {
+xdescribe('UserDbService', () => {
   let service: UserDbService;
 
   beforeEach(async () => {

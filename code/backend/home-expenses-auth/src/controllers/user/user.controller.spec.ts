@@ -5,7 +5,7 @@
 
 import { Test, TestingModule } from '@nestjs/testing';
 import { UserController } from './user.controller';
-import { UserDbService } from '../database/user/service/user-db.service';
+import { UserDbService } from '../../database/user/service/user-db.service';
 
 xdescribe('UserController', () => {
   let controller: UserController;

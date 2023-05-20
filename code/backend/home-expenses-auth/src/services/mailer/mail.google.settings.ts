@@ -9,6 +9,6 @@ export const mailerOptions: MailerOptions = {
     }
   },
   defaults: {
-    from: '"nest-modules" <noreply@example.com>'
+    from: '"home-expenses" <noreply@home.expenses.com>'
   }
 };

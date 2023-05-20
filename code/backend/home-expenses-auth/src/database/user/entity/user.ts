@@ -14,4 +14,13 @@ export class User {
   @Column({ unique: true, nullable: false })
   @IsEmail({}, { message: 'Unknown email format' })
   email: string;
+
+  @Column()
+  passwordHash: string;
+
+  @Column()
+  preview: boolean;
+
+  @Column()
+  verificationCode: string;
 }

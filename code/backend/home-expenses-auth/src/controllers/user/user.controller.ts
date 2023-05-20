@@ -15,9 +15,9 @@ import {
   UsePipes,
   ValidationPipe
 } from '@nestjs/common';
-import { UserDbService } from '../database/user/service/user-db.service';
-import { ALREADY_REGISTERED_ERROR, USER_NOT_FOUND_ERROR } from '../database/user/user.constants';
-import { User } from '../database/user/entity/user';
+import { UserDbService } from '../../database/user/service/user-db.service';
+import { User } from '../../database/user/entity/user';
+import { ALREADY_REGISTERED_ERROR, USER_NOT_FOUND_ERROR } from '../../database/user/user.constants';
 
 @Controller('user')
 export class UserController {
