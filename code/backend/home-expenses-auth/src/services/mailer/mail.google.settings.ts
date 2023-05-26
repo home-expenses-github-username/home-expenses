@@ -2,10 +2,10 @@ import { MailerOptions } from '@nestjs-modules/mailer/dist/interfaces/mailer-opt
 
 export const mailerOptions: MailerOptions = {
   transport: {
-    host: 'mail-smtp-service-in-KeyVault',
+    host: '__MAIL_SMTP_SERVICE__',
     auth: {
-      user: 'mail-user-in-KeyVault',
-      pass: 'mail-user-password-in-KeyVault'
+      user: '__MAIL_USER__',
+      pass: '__MAIL_USER_PASSWORD__'
     }
   },
   defaults: {

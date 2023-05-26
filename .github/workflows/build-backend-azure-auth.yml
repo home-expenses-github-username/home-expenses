@@ -1,0 +1,106 @@
+# Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
+# More GitHub Actions for Azure: https://github.com/Azure/actions
+
+name: Build & Deploy BACKEND Auth NestJs on Azure
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'code/backend/home-expenses-auth/**'
+      - '.github/workflows/build-backend-azure-auth.yml'
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Azure Login
+        uses: azure/login@v1
+        with:
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+
+      - name: Azure CLI script - get secret from KeyVault
+        id: step_one
+        uses: azure/CLI@v1
+        with:
+          inlineScript: |
+            dbType=$(az keyvault secret show --vault-name he-keyvault --name db-type --query value --out tsv)
+            echo "::add-mask::$dbType"
+            echo dbType=$dbType >> $GITHUB_ENV
+            
+            dbHost=$(az keyvault secret show --vault-name he-keyvault --name db-host --query value --out tsv)
+            echo "::add-mask::$dbHost"
+            echo dbHost=$dbHost >> $GITHUB_ENV
+            
+            dbUsername=$(az keyvault secret show --vault-name he-keyvault --name db-username --query value --out tsv)
+            echo "::add-mask::$dbUsername"
+            echo dbUsername=$dbUsername >> $GITHUB_ENV
+            
+            dbPassword=$(az keyvault secret show --vault-name he-keyvault --name db-password --query value --out tsv)
+            echo "::add-mask::$dbPassword"
+            echo dbPassword=$dbPassword >> $GITHUB_ENV
+
+            dbName=$(az keyvault secret show --vault-name he-keyvault --name db-name --query value --out tsv)
+            echo "::add-mask::$dbName"
+            echo dbName=$dbName >> $GITHUB_ENV
+
+            mailSmtpService=$(az keyvault secret show --vault-name he-keyvault --name mail-smtp-service --query value --out tsv)
+            echo "::add-mask::$mailSmtpService"
+            echo mailSmtpService=$mailSmtpService >> $GITHUB_ENV
+
+            mailUser=$(az keyvault secret show --vault-name he-keyvault --name mail-user --query value --out tsv)
+            echo "::add-mask::$mailUser"
+            echo mailUser=$mailUser >> $GITHUB_ENV
+
+            mailUserPassword=$(az keyvault secret show --vault-name he-keyvault --name mail-user-password --query value --out tsv)
+            echo "::add-mask::$mailUserPassword"
+            echo mailUserPassword=$mailUserPassword >> $GITHUB_ENV
+
+      - uses: cschleiden/replace-tokens@v1
+        with:
+          tokenPrefix: '__'
+          tokenSuffix: '__'
+          files: '["code/backend/home-expenses-auth/src/database/database.providers.ts", "code/backend/home-expenses-auth/src/services/mailer/mail.google.settings.ts"]'
+        env:
+          DB_URL: ${{ env.dbUrl }}
+          DB_HOST: ${{ env.dbHost }}
+          DB_USERNAME: ${{ env.dbUsername }}
+          DB_PASSWORD: ${{ env.dbPassword }}
+          DB_NAME: ${{ env.dbName }}
+          MAIL_SMTP_SERVICE: ${{ env.mailSmtpService }}
+          MAIL_USER: ${{ env.mailUser }}
+          MAIL_USER_PASSWORD: ${{ env.mailUserPassword }}
+
+#Remove upload after check
+      - name: Upload artifact for deployment job
+        uses: actions/upload-artifact@v2
+        with:
+          name: node-app
+          path: .
+
+      - name: Set up Node.js version
+        uses: actions/setup-node@v1
+        with:
+          node-version: '18.x'
+
+      - name: npm install, build, and test
+        run: |
+          npm install
+          npm run build --if-present
+          npm run test --if-present
+
+      - name: 'Deploy to Azure Web App'
+        id: deploy-to-webapp
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: 'home-expenses-auth'
+          slot-name: 'production'
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_5B406A8C03DB47029D5A9E7B0784E2D3 }}
+          package: .

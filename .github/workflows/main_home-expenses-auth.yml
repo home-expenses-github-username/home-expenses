@@ -6,7 +6,7 @@ name: Build and deploy Node.js app to Azure Web App - home-expenses-auth
 on:
   push:
     branches:
-      - main
+      - unknown
   workflow_dispatch:
 
 jobs:
