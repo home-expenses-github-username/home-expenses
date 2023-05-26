@@ -13,7 +13,7 @@ export const databaseProviders = [
     provide: DATA_SOURCE,
     useFactory: async () => {
       const dataSource = new DataSource({
-        type: '__DB_TYPE__',
+        type: 'mssql',
         host: '__DB_HOST__',
         username: '__DB_USERNAME__',
         password: '__DB_PASSWORD__',
