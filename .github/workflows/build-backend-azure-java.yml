@@ -1,15 +1,15 @@
 # Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
 # More GitHub Actions for Azure: https://github.com/Azure/actions
 
-name: Build & Deploy BACKEND on Azure
+name: Build & Deploy BACKEND Java on Azure
 
 on:
   push:
     branches:
       - main
     paths:
-      - 'code/backend/**'
-      - '.github/workflows/build-backend-azure.yml'
+      - 'code/backend/home-expenses-service/**'
+      - '.github/workflows/build-backend-azure-java.yml'
 
   workflow_dispatch:
 
@@ -18,7 +18,8 @@ permissions:
   contents: read
 
 jobs:
-  build:
+#  build:
+  build_and_deploy:
     runs-on: ubuntu-latest
 
     steps:
@@ -70,30 +71,39 @@ jobs:
           arguments: build -x test
           build-root-directory: code/backend/home-expenses-service
 
-      - name: Upload artifact for deployment job
-        uses: actions/upload-artifact@v3
-        with:
-          name: home-expenses-backend
-          path: '${{ github.workspace }}/code/backend/home-expenses-service/build/**/*SNAPSHOT.jar'
-
-  deploy:
-    runs-on: ubuntu-latest
-    needs: build
-    environment:
-      name: 'Production'
-      url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
-
-    steps:
-      - name: Download artifact from build job
-        uses: actions/download-artifact@v3
-        with:
-          name: home-expenses-backend
+#      - name: Upload artifact for deployment job
+#        uses: actions/upload-artifact@v3
+#        with:
+#          name: home-expenses-backend
+#          path: '${{ github.workspace }}/code/backend/home-expenses-service/build/**/*SNAPSHOT.jar'
 
       - name: Deploy to Azure Web App
-        id: deploy-to-webapp
         uses: azure/webapps-deploy@v2
         with:
           app-name: 'home-expenses-backend'
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_25B4180C3FBC4FE3A7785179B8477DC5 }}
-          package: '*.jar'
+          package: '${{ github.workspace }}/code/backend/home-expenses-service/build/**/*SNAPSHOT.jar'
+
+
+#  deploy:
+#    runs-on: ubuntu-latest
+#    needs: build
+#    environment:
+#      name: 'Production'
+#      url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
+#
+#    steps:
+#      - name: Download artifact from build job
+#        uses: actions/download-artifact@v3
+#        with:
+#          name: home-expenses-backend
+#
+#      - name: Deploy to Azure Web App
+#        id: deploy-to-webapp
+#        uses: azure/webapps-deploy@v2
+#        with:
+#          app-name: 'home-expenses-backend'
+#          slot-name: 'Production'
+#          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_25B4180C3FBC4FE3A7785179B8477DC5 }}
+#          package: '*.jar'
