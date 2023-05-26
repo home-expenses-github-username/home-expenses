@@ -16,6 +16,6 @@ async function bootstrap() {
   //   origin: 'https://local.home-expenses.com:8443',
   //   // credentials: true
   // });
-  await app.listen(3000);
+  await app.listen(process.env.PORT || 3000);
 }
 bootstrap();
