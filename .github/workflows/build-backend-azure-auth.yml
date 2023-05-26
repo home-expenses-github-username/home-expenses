@@ -12,12 +12,16 @@ on:
       - '.github/workflows/build-backend-azure-auth.yml'
   workflow_dispatch:
 
+permissions:
+  id-token: write
+  contents: read
+
 jobs:
-  build:
+  build_and_deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       - name: Azure Login
         uses: azure/login@v1
