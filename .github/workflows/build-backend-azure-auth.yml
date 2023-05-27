@@ -82,13 +82,6 @@ jobs:
           MAIL_USER: ${{ env.mailUser }}
           MAIL_USER_PASSWORD: ${{ env.mailUserPassword }}
 
-#Remove upload after check
-      - name: Upload artifact for deployment job
-        uses: actions/upload-artifact@v2
-        with:
-          name: node-app
-          path: .
-
       - name: Set up Node.js version
         uses: actions/setup-node@v1
         with:
@@ -97,9 +90,16 @@ jobs:
       - name: npm install, build, and test
         run: |
           cd code/backend/home-expenses-auth
-          npm install
+          npm ci --omit==dev
           npm run build --if-present
           npm run test --if-present
+
+      #Remove upload after check
+      - name: Upload artifact for deployment job
+        uses: actions/upload-artifact@v3
+        with:
+          name: node-app
+          path: .
 
       - name: 'Deploy to Azure Web App'
         id: deploy-to-webapp
