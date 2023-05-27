@@ -31,7 +31,6 @@ jobs:
           tenant-id: ${{ secrets.AZURE_TENANT_ID }}
 
       - name: Azure CLI script - get secret from KeyVault
-        id: step_one
         uses: azure/CLI@v1
         with:
           inlineScript: |
@@ -92,10 +91,9 @@ jobs:
           npm run build --if-present
 
       - name: 'Deploy to Azure Web App'
-        id: deploy-to-webapp
         uses: azure/webapps-deploy@v2
         with:
           app-name: 'home-expenses-auth'
-          slot-name: 'production'
+          slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_5B406A8C03DB47029D5A9E7B0784E2D3 }}
           package: ./code/backend/home-expenses-auth
