@@ -35,10 +35,6 @@ jobs:
         uses: azure/CLI@v1
         with:
           inlineScript: |
-            dbType=$(az keyvault secret show --vault-name he-keyvault --name db-type --query value --out tsv)
-            echo "::add-mask::$dbType"
-            echo dbType=$dbType >> $GITHUB_ENV
-            
             dbHost=$(az keyvault secret show --vault-name he-keyvault --name db-host --query value --out tsv)
             echo "::add-mask::$dbHost"
             echo dbHost=$dbHost >> $GITHUB_ENV
@@ -73,7 +69,6 @@ jobs:
           tokenSuffix: '__'
           files: '["code/backend/home-expenses-auth/src/database/database.providers.ts", "code/backend/home-expenses-auth/src/services/mailer/mail.google.settings.ts"]'
         env:
-          DB_URL: ${{ env.dbUrl }}
           DB_HOST: ${{ env.dbHost }}
           DB_USERNAME: ${{ env.dbUsername }}
           DB_PASSWORD: ${{ env.dbPassword }}
@@ -83,23 +78,18 @@ jobs:
           MAIL_USER_PASSWORD: ${{ env.mailUserPassword }}
 
       - name: Set up Node.js version
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v3
         with:
-          node-version: '18.x'
+          node-version: 18.14.0
+          cache: npm
+          cache-dependency-path: code/backend/home-expenses-auth/package-lock.json
 
-      - name: npm install, build, and test
+      - name: npm ci, build, and test
         run: |
           cd code/backend/home-expenses-auth
           npm ci --omit==dev
-          npm run build --if-present
           npm run test --if-present
-
-      #Remove upload after check
-      - name: Upload artifact for deployment job
-        uses: actions/upload-artifact@v3
-        with:
-          name: node-app
-          path: .
+          npm run build --if-present
 
       - name: 'Deploy to Azure Web App'
         id: deploy-to-webapp
