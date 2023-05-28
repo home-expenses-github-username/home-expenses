@@ -1,6 +1,3 @@
-# Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
-# More GitHub Actions for Azure: https://github.com/Azure/actions
-
 name: Build & Deploy BACKEND Auth NestJs on Azure
 
 on:
@@ -62,11 +59,19 @@ jobs:
             echo "::add-mask::$mailUserPassword"
             echo mailUserPassword=$mailUserPassword >> $GITHUB_ENV
 
+            authATSecret=$(az keyvault secret show --vault-name he-keyvault --name auth-access-token-secret --query value --out tsv)
+            echo "::add-mask::$authATSecret"
+            echo authATSecret=$authATSecret >> $GITHUB_ENV
+
+            authRTSecret=$(az keyvault secret show --vault-name he-keyvault --name auth-refresh-token-secret --query value --out tsv)
+            echo "::add-mask::$authRTSecret"
+            echo authRTSecret=$authRTSecret >> $GITHUB_ENV
+
       - uses: cschleiden/replace-tokens@v1
         with:
           tokenPrefix: '__'
           tokenSuffix: '__'
-          files: '["code/backend/home-expenses-auth/src/database/database.providers.ts", "code/backend/home-expenses-auth/src/services/mailer/mail.google.settings.ts"]'
+          files: '["code/backend/home-expenses-auth/src/config/db.ts", "code/backend/home-expenses-auth/src/config/mail.ts", "code/backend/home-expenses-auth/src/config/auth.ts"]'
         env:
           DB_HOST: ${{ env.dbHost }}
           DB_USERNAME: ${{ env.dbUsername }}
@@ -75,6 +80,8 @@ jobs:
           MAIL_SMTP_SERVICE: ${{ env.mailSmtpService }}
           MAIL_USER: ${{ env.mailUser }}
           MAIL_USER_PASSWORD: ${{ env.mailUserPassword }}
+          AUTH_AT_SECRET: ${{ env.authATSecret }}
+          AUTH_RT_SECRET: ${{ env.authRTSecret }}
 
       - name: Set up Node.js version
         uses: actions/setup-node@v3

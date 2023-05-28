@@ -7,8 +7,8 @@ import { Inject, Injectable } from '@nestjs/common';
 import { USER_REPOSITORY } from '../../database.constants';
 import { User } from '../entity/user';
 import { Repository } from 'typeorm';
-import { Credentials } from '../../../controllers/auth/dto/credentials';
-import { genSalt, hash } from 'bcryptjs';
+import { Credentials } from '../../../auth/controllers/dto/credentials';
+import * as argon from 'argon2';
 
 @Injectable()
 export class UserDbService {
@@ -31,13 +31,11 @@ export class UserDbService {
   }
 
   async createPreview(credentials: Credentials): Promise<User> {
-    const salt = await genSalt(10);
-
     const newUser: Partial<User> = {
       email: credentials.email,
-      passwordHash: await hash(credentials.password, salt),
+      passwordHash: await argon.hash(credentials.password),
       preview: true,
-      verificationCode: credentials.verificationCode
+      verificationCodeHash: await argon.hash(credentials.verificationCode)
     };
 
     const user = this.userRepository.create(newUser);
@@ -46,10 +44,16 @@ export class UserDbService {
 
   async activate(user: User): Promise<User> {
     user.preview = false;
+    user.verificationCodeHash = null;
     return this.userRepository.save(user);
   }
 
   async delete(email: string): Promise<any> {
     return this.userRepository.delete({ email });
+  }
+
+  async updateRefreshToken(user: User, refreshToken: string) {
+    user.refreshTokenHash = await argon.hash(refreshToken);
+    return this.userRepository.save(user);
   }
 }

@@ -21,6 +21,15 @@ export class User {
   @Column()
   preview: boolean;
 
-  @Column()
-  verificationCode: string;
+  @Column({ nullable: true })
+  verificationCodeHash: string;
+
+  @Column({ nullable: true })
+  refreshTokenHash: string;
+
+  @Column({ nullable: true })
+  firstName: string;
+
+  @Column({ nullable: true })
+  lastName: string;
 }

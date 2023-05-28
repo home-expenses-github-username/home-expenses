@@ -4,9 +4,9 @@
  */
 
 import { DataSource } from 'typeorm';
-
 import { DATA_SOURCE } from './database.constants';
 import { User } from './user/entity/user';
+import { DB_HOST, DB_USERNAME, DB_PASSWORD, DB_NAME } from '../../config/db';
 
 export const databaseProviders = [
   {
@@ -14,14 +14,13 @@ export const databaseProviders = [
     useFactory: async () => {
       const dataSource = new DataSource({
         type: 'mssql',
-        host: '__DB_HOST__',
-        username: '__DB_USERNAME__',
-        password: '__DB_PASSWORD__',
-        database: '__DB_NAME__',
-        synchronize: false,
-        logging: false,
+        host: DB_HOST,
+        username: DB_USERNAME,
+        password: DB_PASSWORD,
+        database: DB_NAME,
         entities: [User],
         migrations: [],
+        logging: false,
         subscribers: []
       });
 

@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { MailerService } from '@nestjs-modules/mailer';
-import { Credentials } from '../../controllers/auth/dto/credentials';
-import { UserDbService } from '../../database/user/service/user-db.service';
-import { User } from '../../database/user/entity/user';
+import { Credentials } from '../../modules/auth/controllers/dto/credentials';
+import { UserDbService } from '../../modules/database/user/service/user-db.service';
+import { User } from '../../modules/database/user/entity/user';
 import { randomUUID } from 'crypto';
 
 @Injectable()

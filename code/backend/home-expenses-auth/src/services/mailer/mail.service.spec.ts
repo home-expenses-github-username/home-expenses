@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { MailService } from './mail.service';
 import { MailerService } from '@nestjs-modules/mailer';
-import { UserDbService } from '../../database/user/service/user-db.service';
+import { UserDbService } from '../../modules/database/user/service/user-db.service';
 
 const UserDbServiceStub = {};
 

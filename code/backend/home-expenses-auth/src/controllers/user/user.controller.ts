@@ -12,17 +12,20 @@ import {
   NotFoundException,
   Param,
   Post,
+  UseGuards,
   UsePipes,
   ValidationPipe
 } from '@nestjs/common';
-import { UserDbService } from '../../database/user/service/user-db.service';
-import { User } from '../../database/user/entity/user';
-import { ALREADY_REGISTERED_ERROR, USER_NOT_FOUND_ERROR } from '../../database/user/user.constants';
+import { UserDbService } from '../../modules/database/user/service/user-db.service';
+import { User } from '../../modules/database/user/entity/user';
+import { ALREADY_REGISTERED_ERROR, USER_NOT_FOUND_ERROR } from '../../modules/database/user/user.constants';
+import { AccessTokenGuard } from '../../modules/auth/guards/access-token.guard';
 
 @Controller('user')
 export class UserController {
   constructor(private readonly service: UserDbService) {}
 
+  @UseGuards(AccessTokenGuard)
   @Get('findAll')
   async findAll(): Promise<User[]> {
     return this.service.findAll();
