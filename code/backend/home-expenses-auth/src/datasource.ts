@@ -1,5 +1,5 @@
 import { DataSource, DataSourceOptions } from 'typeorm';
-import { DB_HOST, DB_NAME, DB_PASSWORD, DB_USERNAME } from './src/config/db';
+import { DB_HOST, DB_NAME, DB_PASSWORD, DB_USERNAME } from './config/db';
 
 export const datasourceOptions: DataSourceOptions = {
   type: 'mssql',
