@@ -30,6 +30,10 @@ export class UserDbService {
     return this.userRepository.save(newUser);
   }
 
+  async delete(email: string): Promise<any> {
+    return this.userRepository.delete({ email });
+  }
+
   async createPreview(credentials: Credentials): Promise<User> {
     const newUser: Partial<User> = {
       email: credentials.email,
@@ -48,12 +52,27 @@ export class UserDbService {
     return this.userRepository.save(user);
   }
 
-  async delete(email: string): Promise<any> {
-    return this.userRepository.delete({ email });
-  }
-
   async updateRefreshToken(user: User, refreshToken: string) {
     user.refreshTokenHash = await argon.hash(refreshToken);
+    return this.userRepository.save(user);
+  }
+
+  async updatePassword(user: User, newPassword: string, refreshToken: string) {
+    user.refreshTokenHash = await argon.hash(refreshToken);
+    user.passwordHash = await argon.hash(newPassword);
+    return this.userRepository.save(user);
+  }
+
+  async pendingRecover(user: User, verificationCode: string): Promise<User> {
+    user.pendingRecover = true;
+    user.verificationCodeHash = await argon.hash(verificationCode);
+    return this.userRepository.save(user);
+  }
+
+  async finishRecover(user: User, newPassword: string): Promise<User> {
+    user.passwordHash = await argon.hash(newPassword);
+    user.pendingRecover = false;
+    user.verificationCodeHash = null;
     return this.userRepository.save(user);
   }
 }

@@ -7,8 +7,8 @@ export const datasourceOptions: DataSourceOptions = {
   username: DB_USERNAME,
   password: DB_PASSWORD,
   database: DB_NAME,
-  entities: ['dist/src/modules/database/**/entity/*.js'],
-  migrations: ['dist/src/migration/*.js']
+  entities: ['dist/modules/database/**/entity/*.js'],
+  migrations: ['dist/migration/*.js']
 };
 const dataSource = new DataSource(datasourceOptions);
 export default dataSource;

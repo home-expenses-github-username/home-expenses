@@ -32,4 +32,7 @@ export class User {
 
   @Column({ nullable: true })
   lastName: string;
+
+  @Column({ default: false })
+  pendingRecover: boolean;
 }
