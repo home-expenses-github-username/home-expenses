@@ -31,6 +31,9 @@ export class User {
   firstName: string;
 
   @Column({ nullable: true })
+  secondName: string;
+
+  @Column({ nullable: true })
   lastName: string;
 
   @Column({ default: false })
