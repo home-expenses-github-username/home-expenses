@@ -1,20 +1,36 @@
-export class Credentials {
+import { ApiProperty } from '@nestjs/swagger';
+
+export class CredentialsDto {
+  @ApiProperty()
   email: string;
+
+  @ApiProperty()
   password: string;
+
+  @ApiProperty()
   verificationCode?: string;
 }
 
-export class ResetPasswordCredentials {
+export class ResetPasswordCredentialsDto {
+  @ApiProperty()
   oldPassword: string;
+
+  @ApiProperty()
   newPassword: string;
 }
 
-export class ForgotCredentials {
+export class ForgotCredentialsDto {
+  @ApiProperty()
   email: string;
 }
 
-export class RecoverCredentials {
+export class RecoverCredentialsDto {
+  @ApiProperty()
   email: string;
+
+  @ApiProperty()
   newPassword: string;
+
+  @ApiProperty()
   verificationCode: string;
 }

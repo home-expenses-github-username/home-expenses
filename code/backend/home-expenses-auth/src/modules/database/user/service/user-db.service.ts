@@ -7,8 +7,9 @@ import { Inject, Injectable } from '@nestjs/common';
 import { USER_REPOSITORY } from '../../database.constants';
 import { User } from '../entity/user';
 import { Repository } from 'typeorm';
-import { Credentials } from '../../../auth/controllers/dto/credentials';
+import { CredentialsDto } from '../../../auth/controllers/dto/credentials';
 import * as argon from 'argon2';
+import { CreateUserDto } from '../../../../controllers/user/dto/create.user.dto';
 
 @Injectable()
 export class UserDbService {
@@ -25,7 +26,12 @@ export class UserDbService {
     return this.userRepository.findOneBy({ email });
   }
 
-  async create(user: User): Promise<User> {
+  async create(dto: CreateUserDto): Promise<User> {
+    const user = new User();
+    user.email = dto.email;
+    user.preview = dto.preview;
+    user.passwordHash = dto.passwordHash;
+
     const newUser = this.userRepository.create(user);
     return this.userRepository.save(newUser);
   }
@@ -34,7 +40,7 @@ export class UserDbService {
     return this.userRepository.delete({ email });
   }
 
-  async createPreview(credentials: Credentials): Promise<User> {
+  async createPreview(credentials: CredentialsDto): Promise<User> {
     const newUser: Partial<User> = {
       email: credentials.email,
       passwordHash: await argon.hash(credentials.password),

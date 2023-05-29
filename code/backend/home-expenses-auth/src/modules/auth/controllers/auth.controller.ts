@@ -1,6 +1,20 @@
-import { BadRequestException, Body, Controller, Post, Req, UnauthorizedException, UseGuards } from '@nestjs/common';
+import {
+  BadRequestException,
+  Body,
+  Controller,
+  HttpCode,
+  Post,
+  Req,
+  UnauthorizedException,
+  UseGuards
+} from '@nestjs/common';
 import { MailService } from '../../../services/mailer/mail.service';
-import { Credentials, ForgotCredentials, RecoverCredentials, ResetPasswordCredentials } from './dto/credentials';
+import {
+  CredentialsDto,
+  ForgotCredentialsDto,
+  RecoverCredentialsDto,
+  ResetPasswordCredentialsDto
+} from './dto/credentials';
 import { UserDbService } from '../../database/user/service/user-db.service';
 import {
   ACTIVATION_USER_IS_ALREADY_DONE,
@@ -22,13 +36,27 @@ import { User } from '../../database/user/entity/user';
 import { Request } from 'express';
 import { AccessTokenGuard } from '../guards/access-token.guard';
 import { randomUUID } from 'crypto';
+import {
+  ApiBadRequestResponse,
+  ApiBearerAuth,
+  ApiCreatedResponse,
+  ApiOkResponse,
+  ApiOperation,
+  ApiTags,
+  ApiUnauthorizedResponse
+} from '@nestjs/swagger';
 
+@ApiTags('Auth')
 @Controller('auth')
 export class AuthController {
   constructor(private mailService: MailService, private userDbService: UserDbService, private jwtService: JwtService) {}
 
+  @ApiOperation({ summary: 'Start signup process', description: "Don't need to provide any Bearer token here" })
+  @ApiOkResponse({ description: 'The user signup process is successfully started' })
+  @ApiBadRequestResponse({ description: 'Error during signup start process' })
+  @HttpCode(200)
   @Post('signup-start')
-  async signupStart(@Body() credentials: Credentials) {
+  async signupStart(@Body() credentials: CredentialsDto) {
     const isExisted = await this.userDbService.findUser(credentials.email);
     if (isExisted) {
       throw new BadRequestException(ALREADY_REGISTERED_ERROR);
@@ -39,8 +67,12 @@ export class AuthController {
     return this.userDbService.createPreview(credentials);
   }
 
+  @ApiOperation({ summary: 'Finish signup process', description: "Don't need to provide any Bearer token here" })
+  @ApiOkResponse({ description: 'The user signup process is successfully finished' })
+  @ApiUnauthorizedResponse({ description: 'Error during signup finish process' })
+  @HttpCode(200)
   @Post('signup-finish')
-  async signupFinish(@Body() credentials: Credentials) {
+  async signupFinish(@Body() credentials: CredentialsDto) {
     const existedUser = await this.userDbService.findUser(credentials.email);
     if (!existedUser) {
       throw new UnauthorizedException(USER_NOT_FOUND_ERROR);
@@ -66,8 +98,13 @@ export class AuthController {
     return this.userDbService.activate(existedUser);
   }
 
+  @ApiOperation({ summary: 'Signin using login/password', description: "Don't need to provide any Bearer token here" })
+  @ApiOkResponse({ description: 'The user signin process is successfully finished' })
+  @ApiBadRequestResponse({ description: 'Error during signin process' })
+  @ApiUnauthorizedResponse({ description: 'Error during signin process' })
+  @HttpCode(200)
   @Post('signin')
-  async signin(@Body() credentials: Credentials) {
+  async signin(@Body() credentials: CredentialsDto) {
     const existedUser = await this.userDbService.findUser(credentials.email);
     if (!existedUser) {
       throw new BadRequestException(USER_NOT_FOUND_ERROR);
@@ -87,8 +124,13 @@ export class AuthController {
     return newTokens;
   }
 
+  @ApiOperation({ summary: 'Recover password via email', description: "Don't need to provide any Bearer token here" })
+  @ApiOkResponse({ description: 'Forgot password process is successfully started' })
+  @ApiBadRequestResponse({ description: 'Error during starting forgot password process' })
+  @ApiUnauthorizedResponse({ description: 'Error during starting forgot password process' })
+  @HttpCode(200)
   @Post('forgot-password-start')
-  async forgotPasswordStart(@Body() credentials: ForgotCredentials) {
+  async forgotPasswordStart(@Body() credentials: ForgotCredentialsDto) {
     const existedUser = await this.userDbService.findUser(credentials.email);
     if (!existedUser) {
       throw new BadRequestException(USER_NOT_FOUND_ERROR);
@@ -103,8 +145,15 @@ export class AuthController {
     return this.userDbService.pendingRecover(existedUser, verificationCode);
   }
 
+  @ApiOperation({
+    summary: 'Finish recover password process',
+    description: "Don't need to provide any Bearer token here"
+  })
+  @ApiOkResponse({ description: 'Forgot password process is successfully finished' })
+  @ApiUnauthorizedResponse({ description: 'Error during finishing forgot password process' })
+  @HttpCode(200)
   @Post('forgot-password-finish')
-  async forgotPasswordFinish(@Body() newCredentials: RecoverCredentials) {
+  async forgotPasswordFinish(@Body() newCredentials: RecoverCredentialsDto) {
     const existedUser = await this.userDbService.findUser(newCredentials.email);
     if (!existedUser) {
       throw new UnauthorizedException(USER_NOT_FOUND_ERROR);
@@ -130,8 +179,14 @@ export class AuthController {
   }
 
   @UseGuards(AccessTokenGuard)
+  @ApiBearerAuth()
+  @ApiOperation({ summary: 'Reset password', description: 'Use access token as Bearer during password reset' })
+  @ApiOkResponse({ description: 'Reset password process is successfully done' })
+  @ApiUnauthorizedResponse({ description: 'Error during reset password process' })
+  @ApiBadRequestResponse({ description: 'Error during reset password process' })
+  @HttpCode(200)
   @Post('reset-password')
-  async resetPassword(@Req() req: Request, @Body() credentials: ResetPasswordCredentials) {
+  async resetPassword(@Req() req: Request, @Body() credentials: ResetPasswordCredentialsDto) {
     const email = req.user['email'];
     const existedUser = await this.userDbService.findUser(email);
     if (!existedUser) {
@@ -157,6 +212,13 @@ export class AuthController {
   }
 
   @UseGuards(RefreshTokenGuard)
+  @ApiBearerAuth()
+  @ApiOperation({
+    summary: 'Refresh access and refresh tokens',
+    description: 'Use refresh token as Bearer during refreshing both tokens'
+  })
+  @ApiCreatedResponse({ description: 'New access and refresh tokens are successfully created' })
+  @ApiUnauthorizedResponse({ description: 'Error during refresh tokens process' })
   @Post('refresh-token')
   async refreshToken(@Req() req: Request) {
     const existedUser = await this.userDbService.findUser(req.user['email']);
@@ -182,7 +244,7 @@ export class AuthController {
         },
         {
           secret: AUTH_ACCESS_TOKEN_SECRET,
-          expiresIn: '1m'
+          expiresIn: '15m'
         }
       ),
       refresh_token: this.jwtService.sign(
@@ -191,7 +253,7 @@ export class AuthController {
         },
         {
           secret: AUTH_REFRESH_TOKEN_SECRET,
-          expiresIn: '5m'
+          expiresIn: '2h'
         }
       )
     };

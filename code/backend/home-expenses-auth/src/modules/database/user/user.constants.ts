@@ -3,7 +3,7 @@
  * All Rights Reserved.
  */
 
-export const USER_NOT_FOUND_ERROR = 'User is not found';
+export const USER_NOT_FOUND_ERROR = 'The user is not found';
 export const ALREADY_REGISTERED_ERROR = 'The user is already registered';
 export const ACTIVATION_USER_IS_ALREADY_DONE = 'The user is already activated';
 export const EXPECTED_ACTIVATION_ERROR = 'The user is expecting to be activated';

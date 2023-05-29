@@ -19,10 +19,11 @@ async function bootstrap() {
   // });
 
   const config = new DocumentBuilder()
-    .setTitle('Home Expenses example')
+    .setTitle('Home Expenses API')
     .setDescription('The Home Expenses API description')
     .setVersion('1.0')
-    .addTag('homeExpenses')
+    .addTag('HomeExpenses')
+    .addBearerAuth()
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);
