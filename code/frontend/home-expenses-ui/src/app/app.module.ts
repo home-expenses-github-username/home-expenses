@@ -43,7 +43,7 @@ import { JwtInterceptorService } from './services/interceptor/jwt-interceptor.se
     NgbModule,
     ReactiveFormsModule
   ],
-  // providers: [{ provide: HTTP_INTERCEPTORS, useClass: JwtInterceptorService, multi: true }],
+  providers: [{ provide: HTTP_INTERCEPTORS, useClass: JwtInterceptorService, multi: true }],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

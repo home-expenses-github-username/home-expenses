@@ -11,7 +11,6 @@ import { ErrorPageComponent } from './pages/error-page/error-page.component';
 const routes: Routes = [
   {
     path: '',
-    canActivate: [AtAuthGuard],
     children: [
       {
         path: '',
@@ -20,12 +19,12 @@ const routes: Routes = [
       },
       {
         path: 'expenses',
-        // canActivate: [AtAuthGuard],
+        canActivate: [AtAuthGuard],
         component: ExpensesComponent
       },
       {
         path: 'all-expenses',
-        // canActivate: [AtAuthGuard],
+        canActivate: [AtAuthGuard],
         component: AllExpensesComponent
       },
       {

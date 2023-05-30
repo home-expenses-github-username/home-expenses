@@ -14,15 +14,14 @@ export class ExpensesService {
 
   private url = environment.backendUrl;
 
-  public getExpenses(isMockedData?: boolean): Observable<Expense[]> {
-    // if (isMockedData) {
-      return timer(2000).pipe(map(() => expensesMock));
-    // }
+  public getExpenses(): Observable<Expense[]> {
+    // return timer(2000).pipe(map(() => expensesMock));
+
     // .get<{ _embedded: {expenses: Expense[]} }>('http://localhost:8080/api/expenses')
 
-    // return this.httpClient
-    //   .get<{ _embedded: { expenses: Expense[] } }>(`${this.url}/api/expenses`)
-    //   .pipe(map((response) => response._embedded.expenses));
+    return this.httpClient
+      .get<{ _embedded: { expenses: Expense[] } }>(`${this.url}/api/expenses`)
+      .pipe(map((response) => response._embedded.expenses));
   }
 
   public createExpense(expenseBody: Expense): Observable<Expense> {
