@@ -16,6 +16,7 @@ import { AuthService } from '../../services/http/auth.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Store } from '@ngrx/store';
 import { Router } from '@angular/router';
+import { TokenVaultService } from '../../services/token-vault/token-vault.service';
 
 @Injectable()
 export class AuthEffects {
@@ -23,7 +24,8 @@ export class AuthEffects {
     private actions$: Actions,
     private store: Store,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private tokenVault: TokenVaultService
   ) {}
 
   signupStart$ = createEffect(() =>
@@ -97,12 +99,12 @@ export class AuthEffects {
   signin$ = createEffect(() =>
     this.actions$.pipe(
       ofType(signin),
-      switchMap((action) => {
-        return this.authService.signin(action.credentials).pipe(
-          map(() => signinSuccess()),
+      switchMap((action) =>
+        this.authService.signin(action.credentials).pipe(
+          map((tokens) => signinSuccess({ tokens })),
           catchError((errorResponse: HttpErrorResponse) => of(signupStartFailure(errorResponse)))
-        );
-      })
+        )
+      )
     )
   );
 
@@ -110,7 +112,16 @@ export class AuthEffects {
     () =>
       this.actions$.pipe(
         ofType(signinSuccess),
-        tap(() => {
+        tap((action) => {
+          if (
+            action.tokens.access_token &&
+            action.tokens.refresh_token &&
+            action.tokens.access_token.length &&
+            action.tokens.refresh_token.length
+          ) {
+            this.tokenVault.saveAccessToken(action.tokens.access_token);
+            this.tokenVault.saveRefreshToken(action.tokens.refresh_token);
+          }
           this.router.navigate(['/all-expenses']);
         })
       ),

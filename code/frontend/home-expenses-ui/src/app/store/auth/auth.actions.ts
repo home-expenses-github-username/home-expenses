@@ -1,5 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 import { Credentials } from '../../shared/interfaces/credentials';
+import { Tokens } from '../../interfaces/tokens';
 
 export const signupStart = createAction('[Auth] Start signup', props<{ credentials: Credentials }>());
 export const signupStartSuccess = createAction('[Auth] Start signup success');
@@ -16,7 +17,7 @@ export const signupFinishFailure = createAction(
 );
 
 export const signin = createAction('[Auth] Signin', props<{ credentials: Credentials }>());
-export const signinSuccess = createAction('[Auth] Signin was successful');
+export const signinSuccess = createAction('[Auth] Signin was successful', props<{ tokens: Tokens }>());
 export const signinFailed = createAction('[Auth] Signin Failed');
 
 export const logout = createAction('[Auth] Start logout');

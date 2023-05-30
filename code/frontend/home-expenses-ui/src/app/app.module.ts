@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { ExpensesEffects } from './store/expenses/expenses-effects';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ReactiveFormsModule } from '@angular/forms';
 import { reducers } from './store/reducers';
@@ -20,6 +20,7 @@ import { HeaderComponent } from './header/header.component';
 import { SignupFinishComponent } from './pages/signup-finish/signup-finish.component';
 import { ErrorPageComponent } from './pages/error-page/error-page.component';
 import { AuthEffects } from './store/auth/auth.effects';
+import { JwtInterceptorService } from './services/interceptor/jwt-interceptor.service';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,7 @@ import { AuthEffects } from './store/auth/auth.effects';
     NgbModule,
     ReactiveFormsModule
   ],
-  providers: [],
+  // providers: [{ provide: HTTP_INTERCEPTORS, useClass: JwtInterceptorService, multi: true }],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
