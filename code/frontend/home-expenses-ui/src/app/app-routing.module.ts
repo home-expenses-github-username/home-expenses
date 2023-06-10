@@ -33,7 +33,7 @@ const routes: Routes = [
           { path: 'signup-start', component: SignupComponent },
           { path: 'signup-finish', component: SignupFinishComponent },
           { path: 'signin', component: SigninComponent },
-          { path: 'logout', redirectTo: 'signing' }
+          { path: 'signout', redirectTo: 'signin' }
         ]
       },
       {

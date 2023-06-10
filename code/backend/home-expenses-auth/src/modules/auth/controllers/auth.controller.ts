@@ -2,6 +2,7 @@ import {
   BadRequestException,
   Body,
   Controller,
+  Get,
   HttpCode,
   Post,
   Req,
@@ -30,7 +31,12 @@ import {
 } from '../../database/user/user.constants';
 import * as argon from 'argon2';
 import { JwtService } from '@nestjs/jwt';
-import { AUTH_ACCESS_TOKEN_SECRET, AUTH_REFRESH_TOKEN_SECRET } from '../../../config/auth';
+import {
+  AUTH_ACCESS_TOKEN_EXPIRATION,
+  AUTH_ACCESS_TOKEN_SECRET,
+  AUTH_REFRESH_TOKEN_EXPIRATION,
+  AUTH_REFRESH_TOKEN_SECRET
+} from '../../../config/auth';
 import { RefreshTokenGuard } from '../guards/refresh-token.guard';
 import { User } from '../../database/user/entity/user';
 import { Request } from 'express';
@@ -45,6 +51,7 @@ import {
   ApiTags,
   ApiUnauthorizedResponse
 } from '@nestjs/swagger';
+import { Tokens } from '../interfaces/tokens';
 
 @ApiTags('Auth')
 @Controller('auth')
@@ -122,6 +129,28 @@ export class AuthController {
     const newTokens = this.getTokens(existedUser);
     await this.userDbService.updateRefreshToken(existedUser, newTokens.refresh_token);
     return newTokens;
+  }
+
+  @UseGuards(AccessTokenGuard)
+  @ApiBearerAuth()
+  @ApiOperation({ summary: 'Sign out', description: 'Use access token as Bearer during signing out' })
+  @ApiOkResponse({ description: 'User is signed out' })
+  @ApiUnauthorizedResponse({ description: 'Error during sign out' })
+  @ApiBadRequestResponse({ description: 'Error during  sign out' })
+  @Get('signout')
+  async signout(@Req() req: Request): Promise<true> {
+    const email = req.user['email'];
+    const existedUser = await this.userDbService.findUser(email);
+    if (!existedUser) {
+      throw new BadRequestException(USER_NOT_FOUND_ERROR);
+    }
+
+    if (existedUser.preview) {
+      throw new UnauthorizedException(EXPECTED_ACTIVATION_ERROR);
+    }
+
+    await this.userDbService.updateRefreshToken(existedUser, null);
+    return true;
   }
 
   @ApiOperation({ summary: 'Recover password via email', description: "Don't need to provide any Bearer token here" })
@@ -236,7 +265,7 @@ export class AuthController {
     return newTokens;
   }
 
-  private getTokens(existedUser: User) {
+  private getTokens(existedUser: User): Tokens {
     return {
       access_token: this.jwtService.sign(
         {
@@ -244,7 +273,7 @@ export class AuthController {
         },
         {
           secret: AUTH_ACCESS_TOKEN_SECRET,
-          expiresIn: '15m'
+          expiresIn: AUTH_ACCESS_TOKEN_EXPIRATION
         }
       ),
       refresh_token: this.jwtService.sign(
@@ -253,7 +282,7 @@ export class AuthController {
         },
         {
           secret: AUTH_REFRESH_TOKEN_SECRET,
-          expiresIn: '2h'
+          expiresIn: AUTH_REFRESH_TOKEN_EXPIRATION
         }
       )
     };

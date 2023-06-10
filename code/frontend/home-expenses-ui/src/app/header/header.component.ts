@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { selectIsAuthenticated } from '../store/auth/auth.selectors';
+import { signout } from '../store/auth/auth.actions';
 
 @Component({
   selector: 'app-header',
@@ -6,9 +9,11 @@ import { Component } from '@angular/core';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent {
-  isAuthenticated = true;
+  constructor(private store: Store) {}
 
-  onLogout() {
-    this.isAuthenticated = false;
+  isAuthenticated$ = this.store.select(selectIsAuthenticated);
+
+  signout() {
+    this.store.dispatch(signout());
   }
 }

@@ -18,8 +18,18 @@ export const signupFinishFailure = createAction(
 
 export const signin = createAction('[Auth] Signin', props<{ credentials: Credentials }>());
 export const signinSuccess = createAction('[Auth] Signin was successful', props<{ tokens: Tokens }>());
-export const signinFailed = createAction('[Auth] Signin Failed');
+export const signinFailed = createAction('[Auth] Signin Failed', props<{ message: string; status: number }>());
 
-export const logout = createAction('[Auth] Start logout');
-export const logoutSuccess = createAction('[Auth] Logout was successful');
-export const logoutFailed = createAction('[Auth] Logout failed');
+export const refreshTokensStart = createAction('[Auth] Refresh tokens - Start');
+export const refreshTokensTick = createAction('[Auth] Refresh tokens - Tick');
+export const refreshTokensSuccess = createAction('[Auth] Refresh tokens - SUCCESS', props<{ tokens: Tokens }>());
+export const refreshTokensFailed = createAction(
+  '[Auth] Refresh tokens - FAILED',
+  props<{ message: string; status: number }>()
+);
+
+export const signout = createAction('[Auth] Sign out - Start');
+export const signoutSuccess = createAction('[Auth] Sign out - SUCCESS');
+export const signoutFailed = createAction('[Auth] Sign out - FAILED', props<{ message: string; status: number }>());
+
+export const noOpAction = createAction('[Auth] No Operation Action');

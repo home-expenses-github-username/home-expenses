@@ -1,7 +1,7 @@
 import { Action, createReducer, on } from '@ngrx/store';
 
 import { HttpErrorResponse } from '@angular/common/http';
-import { signin, signinFailed, signinSuccess, logout, logoutFailed, logoutSuccess } from './auth.actions';
+import { signin, signinFailed, signinSuccess, signout, signoutFailed, signoutSuccess } from './auth.actions';
 
 export interface AuthState {
   authenticated: boolean;
@@ -24,22 +24,24 @@ const _authReducer = createReducer(
   })),
   on(signinSuccess, (state, action) => ({
     ...state,
-    isLoading: false
+    isLoading: false,
+    authenticated: true
   })),
   on(signinFailed, (state, action) => ({
     ...state,
     isLoading: false
   })),
 
-  on(logout, (state, action) => ({
+  on(signout, (state, action) => ({
     ...state,
     isLoading: true
   })),
-  on(logoutSuccess, (state, action) => ({
+  on(signoutSuccess, (state, action) => ({
     ...state,
-    isLoading: false
+    isLoading: false,
+    authenticated: false
   })),
-  on(logoutFailed, (state, action) => ({
+  on(signoutFailed, (state, action) => ({
     ...state,
     isLoading: false
   }))

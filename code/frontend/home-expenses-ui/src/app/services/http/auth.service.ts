@@ -24,4 +24,13 @@ export class AuthService {
   public signin(credentials: Credentials): Observable<Tokens> {
     return this.httpClient.post<Tokens>(`${this.authApiUrl}/api/auth/signin`, credentials);
   }
+
+  public signout(): Observable<boolean> {
+    // return timer(2000).pipe(map(() => true));
+    return this.httpClient.get<boolean>(`${this.authApiUrl}/api/auth/signout`);
+  }
+
+  public refreshTokens(): Observable<Tokens> {
+    return this.httpClient.post<Tokens>(`${this.authApiUrl}/api/auth/refresh-token`, null);
+  }
 }

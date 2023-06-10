@@ -28,6 +28,7 @@ export class AtAuthGuard implements CanActivate, CanActivateChild {
     if (at && at.length && !this.jwtHelper.tokenExpired(at)) {
       return true;
     }
+    this.tokenVault.clearAccessToken();
     return this.router.parseUrl(`/auth/signin`);
   }
 

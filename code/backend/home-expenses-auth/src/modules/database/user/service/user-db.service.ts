@@ -59,7 +59,12 @@ export class UserDbService {
   }
 
   async updateRefreshToken(user: User, refreshToken: string) {
-    user.refreshTokenHash = await argon.hash(refreshToken);
+    if (refreshToken) {
+      user.refreshTokenHash = await argon.hash(refreshToken);
+    } else {
+      user.refreshTokenHash = null;
+    }
+
     return this.userRepository.save(user);
   }
 

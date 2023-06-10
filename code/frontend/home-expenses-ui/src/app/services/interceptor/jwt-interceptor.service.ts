@@ -3,15 +3,27 @@ import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/c
 import { Observable } from 'rxjs';
 import { TokenVaultService } from '../token-vault/token-vault.service';
 import { JwtHelper } from '../jwt-helper/jwt-helper';
+import { environment } from '../../../environments/environment';
 
 @Injectable()
 export class JwtInterceptorService implements HttpInterceptor {
+  private authApiUrl = `${environment.authApiUrl}`;
+
   constructor(private tokenVault: TokenVaultService, private jwtHelper: JwtHelper) {
     console.log('CONSTRUCTOR JwtInterceptorService');
   }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    const token = this.tokenVault.getAccessToken();
+    let token;
+
+    switch (req.url) {
+      case `${this.authApiUrl}/api/auth/refresh-token`:
+        token = this.tokenVault.getRefreshToken();
+        break;
+      default:
+        token = this.tokenVault.getAccessToken();
+        break;
+    }
 
     if (token && token.length && !this.jwtHelper.tokenExpired(token)) {
       req = req.clone({

@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg bg-light">
   <div class="container-fluid">
-    <a class="navbar-brand" routerLinkActive="active" routerLink="/all-expenses">Home Expenses</a>
+    <a class="navbar-brand" routerLinkActive="active" routerLink="/">Home Expenses</a>
 
     <button
       class="navbar-toggler"
@@ -16,10 +16,16 @@
 
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
       <div class="navbar-nav w-100">
-        <a class="nav-link" routerLinkActive="active" routerLink="/all-expenses">All expenses</a>
-        <a class="nav-link" routerLinkActive="active" routerLink="/expenses">Expenses (Simple)</a>
+        <a *ngIf="isAuthenticated$ | async" class="nav-link" routerLinkActive="active" routerLink="/all-expenses">
+          All expenses
+        </a>
+        <a *ngIf="isAuthenticated$ | async" class="nav-link" routerLinkActive="active" routerLink="/expenses">
+          Expenses (Simple)
+        </a>
         <div class="d-flex flex-grow-1 justify-content-end">
-          <a class="nav-link" routerLinkActive="active" routerLink="/logout">Logout</a>
+          <button *ngIf="isAuthenticated$ | async" type="button" class="btn btn-dark" (click)="signout()">
+            Sign out
+          </button>
         </div>
       </div>
     </div>
