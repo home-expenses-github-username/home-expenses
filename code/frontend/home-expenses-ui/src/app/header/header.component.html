@@ -16,14 +16,24 @@
 
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
       <div class="navbar-nav w-100">
-        <a *ngIf="isAuthenticated$ | async" class="nav-link" routerLinkActive="active" routerLink="/all-expenses">
+        <a
+          *ngIf="authenticatedService.isAuthenticated"
+          class="nav-link"
+          routerLinkActive="active"
+          routerLink="/all-expenses"
+        >
           All expenses
         </a>
-        <a *ngIf="isAuthenticated$ | async" class="nav-link" routerLinkActive="active" routerLink="/expenses">
+        <a
+          *ngIf="authenticatedService.isAuthenticated"
+          class="nav-link"
+          routerLinkActive="active"
+          routerLink="/expenses"
+        >
           Expenses (Simple)
         </a>
         <div class="d-flex flex-grow-1 justify-content-end">
-          <button *ngIf="isAuthenticated$ | async" type="button" class="btn btn-dark" (click)="signout()">
+          <button *ngIf="authenticatedService.isAuthenticated" type="button" class="btn btn-dark" (click)="signout()">
             Sign out
           </button>
         </div>

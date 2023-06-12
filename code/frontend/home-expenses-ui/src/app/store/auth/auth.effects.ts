@@ -1,6 +1,6 @@
-import { Injectable, OnDestroy } from '@angular/core';
+import { inject, Injectable, OnDestroy } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { catchError, map, of, switchMap, tap } from 'rxjs';
+import { catchError, fromEvent, map, of, switchMap, tap } from 'rxjs';
 import {
   refreshTokensFailed,
   refreshTokensStart,
@@ -24,10 +24,13 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Store } from '@ngrx/store';
 import { Router } from '@angular/router';
 import { TokenVaultService } from '../../services/token-vault/token-vault.service';
+import { AuthenticatedService } from '../../services/isAuthenticated/authenticated.service';
 
 @Injectable()
 export class AuthEffects implements OnDestroy {
   private refreshTokensTimer;
+
+  private authenticatedService = inject(AuthenticatedService);
 
   constructor(
     private actions$: Actions,
@@ -88,7 +91,7 @@ export class AuthEffects implements OnDestroy {
       this.actions$.pipe(
         ofType(signupFinishSuccess),
         tap(() => {
-          this.router.navigate(['/all-expenses']);
+          this.router.navigate(['/']);
         })
       ),
     { dispatch: false }
@@ -128,10 +131,11 @@ export class AuthEffects implements OnDestroy {
             action.tokens.access_token.length &&
             action.tokens.refresh_token.length
           ) {
+            this.authenticatedService.isAuthenticated = true;
             this.tokenVault.saveAccessToken(action.tokens.access_token);
             this.tokenVault.saveRefreshToken(action.tokens.refresh_token);
-            this.store.dispatch(refreshTokensStart());
-            this.router.navigate(['/all-expenses']);
+            // this.store.dispatch(refreshTokensStart());
+            this.router.navigate(['/']);
           } else {
             this.router.navigate(['/401']);
           }
@@ -173,9 +177,10 @@ export class AuthEffects implements OnDestroy {
       this.actions$.pipe(
         ofType(signoutSuccess),
         tap(() => {
+          this.authenticatedService.isAuthenticated = false;
+          this.tokenVault.clearAllTokens();
           if (this.refreshTokensTimer) {
             clearInterval(this.refreshTokensTimer);
-            this.tokenVault.clearAllTokens();
           }
 
           this.router.navigate(['/auth/signin']);
@@ -241,6 +246,14 @@ export class AuthEffects implements OnDestroy {
         })
       ),
     { dispatch: false }
+  );
+
+  storageEvent$ = createEffect(() =>
+    fromEvent<StorageEvent>(window, 'storage').pipe(
+      tap((value) => {
+        // console.log('storageEvent$ value', value);
+      })
+    )
   );
 
   ngOnDestroy(): void {

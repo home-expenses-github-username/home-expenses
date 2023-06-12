@@ -4,4 +4,4 @@ import { AuthState } from './auth.reducer';
 
 export const selectAuthState = (state: AppState): AuthState => state.auth;
 
-export const selectIsAuthenticated = createSelector(selectAuthState, (state: AuthState) => state.authenticated);
+// export const selectIsAuthenticated = createSelector(selectAuthState, (state: AuthState) => state.authenticated);

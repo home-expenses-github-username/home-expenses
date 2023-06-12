@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import {
   ActivatedRouteSnapshot,
   CanActivate,
@@ -10,14 +10,16 @@ import {
 import { Observable } from 'rxjs';
 import { TokenVaultService } from '../services/token-vault/token-vault.service';
 import { JwtHelper } from '../services/jwt-helper/jwt-helper';
+import { AuthenticatedService } from '../services/isAuthenticated/authenticated.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AtAuthGuard implements CanActivate, CanActivateChild {
-  constructor(private router: Router, private readonly tokenVault: TokenVaultService, private jwtHelper: JwtHelper) {
-    console.log('CONSTRUCTOR AtAuthGuard');
-  }
+  private authenticatedService = inject(AuthenticatedService);
+  private router = inject(Router);
+  private tokenVault = inject(TokenVaultService);
+  private jwtHelper = inject(JwtHelper);
 
   canActivate(
     route: ActivatedRouteSnapshot,
@@ -26,8 +28,11 @@ export class AtAuthGuard implements CanActivate, CanActivateChild {
     console.log('canActivate');
     const at = this.tokenVault.getAccessToken();
     if (at && at.length && !this.jwtHelper.tokenExpired(at)) {
+      this.authenticatedService.isAuthenticated = true;
+
       return true;
     }
+    this.authenticatedService.isAuthenticated = false;
     this.tokenVault.clearAccessToken();
     return this.router.parseUrl(`/auth/signin`);
   }

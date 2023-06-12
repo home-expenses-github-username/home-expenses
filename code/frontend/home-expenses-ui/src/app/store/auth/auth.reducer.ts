@@ -4,13 +4,11 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { signin, signinFailed, signinSuccess, signout, signoutFailed, signoutSuccess } from './auth.actions';
 
 export interface AuthState {
-  authenticated: boolean;
   isLoading: boolean;
   error: HttpErrorResponse;
 }
 
 const authInitialState: AuthState = {
-  authenticated: false,
   isLoading: false,
   error: null
 };
@@ -24,8 +22,7 @@ const _authReducer = createReducer(
   })),
   on(signinSuccess, (state, action) => ({
     ...state,
-    isLoading: false,
-    authenticated: true
+    isLoading: false
   })),
   on(signinFailed, (state, action) => ({
     ...state,
@@ -38,8 +35,7 @@ const _authReducer = createReducer(
   })),
   on(signoutSuccess, (state, action) => ({
     ...state,
-    isLoading: false,
-    authenticated: false
+    isLoading: false
   })),
   on(signoutFailed, (state, action) => ({
     ...state,
