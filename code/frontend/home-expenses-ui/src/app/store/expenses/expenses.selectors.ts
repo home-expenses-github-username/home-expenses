@@ -5,11 +5,9 @@ import { AppState } from '../state';
 export const selectExpensesState = (state: AppState): ExpensesState => state.expenses;
 
 export const selectExpenses = createSelector(selectExpensesState, (state: ExpensesState) =>
-  [...state.expenses].sort((a, b) => b.date - a.date)
+  [...state.expenses].sort((a, b) => Number(b.date) - Number(a.date))
 );
 
 export const selectIsLoading = createSelector(selectExpensesState, (state: ExpensesState) => state.isLoading);
 
 export const selectError = createSelector(selectExpensesState, (state: ExpensesState) => state.error);
-
-// export const selectIsMockedData = createSelector(selectExpensesState, (state: ExpensesState) => state.isMockedData);

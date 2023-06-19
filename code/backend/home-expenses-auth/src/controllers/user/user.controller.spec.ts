@@ -1,6 +1,5 @@
 /*
- * Copyright (C) Vladimir Vysokomornyi
- * All Rights Reserved.
+ * Author: Vladimir Vysokomornyi
  */
 
 import { Test, TestingModule } from '@nestjs/testing';

@@ -1,6 +1,5 @@
 /*
- * Copyright (C) Vladimir Vysokomornyi
- * All Rights Reserved.
+ * Author: Vladimir Vysokomornyi
  */
 
 import { Module } from '@nestjs/common';
@@ -14,10 +13,13 @@ import { TestController } from './controllers/test/test.controller';
 import { UserController } from './controllers/user/user.controller';
 
 import { AuthModule } from './modules/auth/auth.module';
+import { expenseProviders } from './modules/database/expense/expense.provider';
+import { ExpenseController } from './controllers/expense/expense.controller';
+import { ExpenseDbService } from './modules/database/expense/service/expense-db.service';
 
 @Module({
   imports: [DatabaseModule, MailerModule.forRoot(mailerOptions), AuthModule],
-  controllers: [TestController, UserController],
-  providers: [UserDbService, ...userProviders, TestService]
+  controllers: [TestController, UserController, ExpenseController],
+  providers: [UserDbService, ExpenseDbService, ...userProviders, ...expenseProviders, TestService]
 })
 export class AppModule {}

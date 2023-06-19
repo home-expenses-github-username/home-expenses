@@ -1,3 +1,7 @@
+/*
+ * Author: Vladimir Vysokomornyi
+ */
+
 import { Component, Inject, LOCALE_ID, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Expense } from '../../interfaces/Expense';
@@ -47,14 +51,14 @@ export class AllExpensesComponent implements OnInit {
     const timestamp: number = date.getTime();
 
     return {
-      date: timestamp,
+      date: String(timestamp),
       category: rawValue.category,
       cost: rawValue.cost,
       comment: rawValue.comment
     };
   }
 
-  public getFormattedDate(timestamp: number): string {
-    return formatDate(new Date(timestamp), 'YYYY-MM-dd HH:mm:ss', this.locale);
+  public getFormattedDate(timestamp: string): string {
+    return formatDate(new Date(Number(timestamp)), 'YYYY-MM-dd HH:mm:ss', this.locale);
   }
 }

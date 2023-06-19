@@ -1,6 +1,5 @@
 /*
- * Copyright (C) Vladimir Vysokomornyi
- * All Rights Reserved.
+ * Author: Vladimir Vysokomornyi
  */
 
 export const USER_NOT_FOUND_ERROR = 'The user is not found';
@@ -15,3 +14,5 @@ export const AUTH_CHANGE_POLICY_PASSWORD_ERROR = 'Changing Policy password error
 
 export const AUTH_ACCESS_DENIED = 'Access Denied';
 export const AUTH_REFRESH_TOKEN_ERROR = 'Refresh token error';
+
+export const EXPENSE_NOT_FOUND_ERROR = 'The expense is not found';

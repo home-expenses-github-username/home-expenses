@@ -20,6 +20,7 @@ GitHub Pages:
   - [Certificates](#certificates)
   - [Testing](#testing)
 - [Documentation](#documentation)
+- [Swagger](#swagger)
 - [Architecture](#architecture)
   - [Sending Mail Service](#sending-mail-service)
     - [User Signup](#user-signup)
@@ -89,6 +90,9 @@ You can deploy frontend app on two places: GitHub pages and Azure
 ### Documentation
 
 - Adding Database: https://learn.microsoft.com/en-us/azure/azure-sql/database/single-database-create-quickstart?view=azuresql&tabs=azure-portal
+
+### Swagger
+- [Swagger API](https://home-expenses-auth.azurewebsites.net/api)
 
 ### Architecture
 

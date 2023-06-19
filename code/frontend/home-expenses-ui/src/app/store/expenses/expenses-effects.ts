@@ -11,16 +11,23 @@ import {
 import { catchError, map, of, switchMap, withLatestFrom } from 'rxjs';
 import { ExpensesService } from '../../services/http/expenses.service';
 import { Store } from '@ngrx/store';
+import { ExpensesV2Service } from '../../services/http/expenses-v2.service';
 
 @Injectable()
 export class ExpensesEffects {
-  constructor(private actions$: Actions, private expensesService: ExpensesService, private store: Store) {}
+  constructor(
+    private actions$: Actions,
+    private expensesService: ExpensesService,
+    private expensesV2Service: ExpensesV2Service,
+    private store: Store
+  ) {}
 
   getExpenses$ = createEffect(() =>
     this.actions$.pipe(
       ofType(getExpenses),
       switchMap((action) => {
-        return this.expensesService.getExpenses().pipe(
+        // return this.expensesService.getExpenses().pipe(
+        return this.expensesV2Service.getExpenses().pipe(
           map((expenses) => getExpensesResult({ expenses: expenses })),
           catchError((error) => of(getExpensesError({ error })))
         );
@@ -32,7 +39,8 @@ export class ExpensesEffects {
     this.actions$.pipe(
       ofType(createExpense),
       switchMap((action) => {
-        return this.expensesService.createExpense(action.expense).pipe(
+        // return this.expensesService.createExpense(action.expense).pipe(
+        return this.expensesV2Service.createExpense(action.expense).pipe(
           map((response) => createExpensesResult({ expense: response })),
           catchError((error) => of(createExpensesError({ error })))
         );
