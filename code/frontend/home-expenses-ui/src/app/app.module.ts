@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -43,7 +43,30 @@ import { JwtInterceptorService } from './services/interceptor/jwt-interceptor.se
     NgbModule,
     ReactiveFormsModule
   ],
-  providers: [{ provide: HTTP_INTERCEPTORS, useClass: JwtInterceptorService, multi: true }],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptorService, multi: true },
+
+    /*testing new app_initializer*/
+    {
+      provide: APP_INITIALIZER,
+      useFactory: () => doJob,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
+
+function doJob() {
+  // return () => {
+  //   console.log('APP_INITIALIZER doJob()');
+  //   return Promise.resolve();
+  // };
+  console.log('APP_INITIALIZER doJob()');
+  // return Promise.resolve();
+
+  // return new Promise((resolve, reject) => {
+  //   // Do some asynchronous stuff
+  //    resolve();
+  // });
+}
