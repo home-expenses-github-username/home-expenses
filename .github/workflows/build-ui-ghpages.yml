@@ -45,6 +45,22 @@ jobs:
           cd code/frontend/home-expenses-ui
           npm ci
 
+      - name: Prepare app version
+        id: appVersionId
+        run: |
+          BUILDNUMBER=$(date +"%Y%m%d").${GITHUB_RUN_NUMBER}
+          echo build-number=$BUILDNUMBER >> $GITHUB_OUTPUT
+        shell: bash
+
+      - name: Inject version
+        uses: cschleiden/replace-tokens@v1
+        with:
+          tokenPrefix: '__'
+          tokenSuffix: '__'
+          files: '["code/frontend/home-expenses-ui/src/app/header/header.component.html"]'
+        env:
+          APP_VERSION: ${{ steps.appVersionId.outputs.build-number }}
+
       - name: "Build"
         run: |
           cd code/frontend/home-expenses-ui
