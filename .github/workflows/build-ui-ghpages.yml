@@ -68,6 +68,7 @@ jobs:
 
       - name: "Add config.json"
         run: |
+          mkdir -p code/frontend/home-expenses-ui/dist/assets/config 
           cat code/frontend/gh_deployment/dev/assets/config/config.json > code/frontend/home-expenses-ui/dist/assets/config/config.json
 
       - name: "Test"
