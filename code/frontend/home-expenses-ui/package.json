@@ -12,7 +12,8 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test --no-watch",
     "lint": "ng lint --fix",
-    "deploy": "ng deploy --configuration=gh-pages --base-href=/home-expenses/ --no-silent --name=n --email=e"
+    "deploy-old": "ng deploy --configuration=gh-pages --base-href=/home-expenses/ --no-silent --name=n --email=e",
+    "deploy": "ng deploy"
   },
   "private": true,
   "dependencies": {

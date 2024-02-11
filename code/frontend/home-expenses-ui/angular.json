@@ -51,11 +51,12 @@
               "outputHashing": "all"
             },
             "gh-pages": {
-              "assets": [                {
-                "glob": "**/*",
-                "input": "src/environments/templates/assets",
-                "output": "assets"
-              }
+              "assets": [
+                {
+                  "glob": "**/*",
+                  "input": "src/environments/templates/assets",
+                  "output": "assets"
+                }
               ],
               "budgets": [
                 {
@@ -183,7 +184,14 @@
           }
         },
         "deploy": {
-          "builder": "angular-cli-ghpages:deploy"
+          "builder": "angular-cli-ghpages:deploy",
+          "options": {
+            "baseHref": "/home-expenses/",
+            "buildTarget": "home-expenses-ui:build:gh-pages",
+            "noSilent": true,
+            "name": "myGitHubPagesCommitUser",
+            "email": "not-used@mail"
+          }
         }
       }
     }

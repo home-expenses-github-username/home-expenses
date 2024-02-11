@@ -61,6 +61,11 @@ jobs:
         env:
           APP_VERSION: ${{ steps.appVersionId.outputs.build-number }}
 
+#      - name: Print config.json content
+#        run: |
+#          cat code/frontend/home-expenses-ui/src/environments/templates/assets/config/config.json
+#        shell: bash
+
 #      - name: "Build"
 #        run: |
 #          cd code/frontend/home-expenses-ui
