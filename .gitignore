@@ -37,6 +37,7 @@ hs_err_pid*
 /code/frontend/home-expenses-ui/node_modules
 /code/frontend/home-expenses-ui/.angular
 /code/frontend/home-expenses-ui/dist
+/code/frontend/home-expenses-ui/docs
 
 /code/backend/home-expenses-auth/.angular
 /code/backend/home-expenses-auth/node_modules
