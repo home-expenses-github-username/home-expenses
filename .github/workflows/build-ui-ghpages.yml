@@ -24,11 +24,6 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
-#    strategy:
-#      matrix:
-#        node-version: [20]
-        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
-
     steps:
       - uses: actions/checkout@v4
 
@@ -38,7 +33,6 @@ jobs:
           cache: "npm"
           cache-dependency-path: code/frontend/home-expenses-ui/package-lock.json
           node-version: ${{ env.node-version }}
-#          node-version: ${{ matrix.node-version }}
 
       - name: "CI"
         run: |
@@ -52,7 +46,7 @@ jobs:
           echo build-number=$BUILDNUMBER >> $GITHUB_OUTPUT
         shell: bash
 
-      - name: Populate config.json
+      - name: Prepare config.json
         uses: cschleiden/replace-tokens@v1
         with:
           tokenPrefix: '__'
@@ -61,10 +55,10 @@ jobs:
         env:
           APP_VERSION: ${{ steps.appVersionId.outputs.build-number }}
 
-#      - name: Print config.json content
-#        run: |
-#          cat code/frontend/home-expenses-ui/src/environments/templates/assets/config/config.json
-#        shell: bash
+      - name: Display config.json
+        run: |
+          cat code/frontend/home-expenses-ui/src/environments/templates/assets/config/config.json
+        shell: bash
 
 #      - name: "Build"
 #        run: |

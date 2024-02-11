@@ -190,7 +190,7 @@
             "buildTarget": "home-expenses-ui:build:gh-pages",
             "noSilent": true,
             "name": "myGitHubPagesCommitUser",
-            "email": "not-used@mail"
+            "email": "github-pages-user@mail"
           }
         }
       }

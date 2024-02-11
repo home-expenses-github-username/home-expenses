@@ -12,7 +12,6 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test --no-watch",
     "lint": "ng lint --fix",
-    "deploy-old": "ng deploy --configuration=gh-pages --base-href=/home-expenses/ --no-silent --name=n --email=e",
     "deploy": "ng deploy"
   },
   "private": true,
@@ -51,7 +50,7 @@
     "@types/node": "^18.13.0",
     "@typescript-eslint/eslint-plugin": "5.48.1",
     "@typescript-eslint/parser": "5.48.1",
-    "angular-cli-ghpages": "^1.0.5",
+    "angular-cli-ghpages": "^1.0.7",
     "eslint": "^8.31.0",
     "eslint-config-prettier": "^8.6.0",
     "eslint-plugin-prettier": "^4.2.1",
