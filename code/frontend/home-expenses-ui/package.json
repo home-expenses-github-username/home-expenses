@@ -4,6 +4,10 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve --ssl true --host local.home-expenses.com --port 8443",
+    "start-dev": "ng serve -c dev --ssl true --host local.home-expenses.com --port 8443",
+    "start-stage": "ng serve -c stage --ssl true --host local.home-expenses.com --port 8443",
+    "build-dev": "ng build -c dev",
+    "build-stage": "ng build -c stage",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test --no-watch",
