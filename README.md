@@ -17,6 +17,7 @@ GitHub Pages:
   - [Deploy to Azure](#deploy-to-azure)
     - [Backend Azure](#backend-azure)
     - [Frontend Azure](#frontend-azure)
+  - [Deploy to GitHub Pages](#deploy-to-github-pages)
   - [Certificates](#certificates)
   - [Testing](#testing)
 - [Documentation](#documentation)
@@ -82,6 +83,14 @@ You can deploy frontend app on two places: GitHub pages and Azure
    - [Build & Deploy UI on Azure](https://github.com/home-expenses-github-username/home-expenses/actions/workflows/build-ui-azure.yml)
 2. Or trigger manually one of the above:
 3. Navigate to: `https://yellow-bush-03266d003.2.azurestaticapps.net`
+
+#### Deploy to GitHub Pages
+
+1. Locally run `npm run deplloy`
+2. Do not modify folder `docs` to something else inside angular.json `"outputPath": "docs",`.
+   `docs` folder is a requirement for correct GitHub Pages deployment
+   (https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site#about-publishing-sources)
+3. Not every merge to frontend app triggers GitHub Pages deployment. Usually html diff should occur. 
 
 #### Certificates
 
