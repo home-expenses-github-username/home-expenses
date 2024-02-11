@@ -12,7 +12,7 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test --no-watch",
     "lint": "ng lint --fix",
-    "deploy": "ng deploy --base-target=gh-pages --base-href=/home-expenses/ --no-silent --name=n --email=e"
+    "deploy": "ng deploy --configuration=gh-pages --base-href=/home-expenses/ --no-silent --name=n --email=e"
   },
   "private": true,
   "dependencies": {
