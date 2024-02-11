@@ -50,6 +50,27 @@
               ],
               "outputHashing": "all"
             },
+            "gh-pages": {
+              "assets": [                {
+                "glob": "**/*",
+                "input": "src/environments/templates/assets",
+                "output": "assets"
+              }
+              ],
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "1mb",
+                  "maximumError": "2mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
+                }
+              ],
+              "outputHashing": "all"
+            },
             "development": {
               "buildOptimizer": false,
               "optimization": false,
