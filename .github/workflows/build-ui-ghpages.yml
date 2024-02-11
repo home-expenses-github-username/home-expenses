@@ -52,12 +52,12 @@ jobs:
           echo build-number=$BUILDNUMBER >> $GITHUB_OUTPUT
         shell: bash
 
-      - name: Inject version
+      - name: Populate config.json
         uses: cschleiden/replace-tokens@v1
         with:
           tokenPrefix: '__'
           tokenSuffix: '__'
-          files: '["code/frontend/home-expenses-ui/src/app/header/header.component.html"]'
+          files: '["code/frontend/gh_deployment/dev/assets/config/*.json"]'
         env:
           APP_VERSION: ${{ steps.appVersionId.outputs.build-number }}
 
@@ -65,6 +65,10 @@ jobs:
         run: |
           cd code/frontend/home-expenses-ui
           npm run build --if-present
+
+      - name: "Add config.json"
+        run: |
+          cat code/frontend/gh_deployment/dev/assets/config/config.json > code/frontend/home-expenses-ui/dist/assets/config/config.json
 
       - name: "Test"
         run: |
